@@ -2,11 +2,11 @@ import java.awt.Graphics;
 
 public class Player extends AbstractCharacter {
 	public KeyController keyController = KeyController.getInstance();
-	public Player(int w, int h) {
-		super(w, h);
+	public Player(int w, int h, int x, int y) {
+		super(w, h, x, y);
 	}
 	
-	public void draw(Graphics g, int x, int y) {
+	public void draw(Graphics g) {
 		g.drawRect(x, y, width, height);
 	}
 	

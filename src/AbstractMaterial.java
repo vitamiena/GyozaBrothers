@@ -4,10 +4,13 @@ import java.awt.Graphics;
 abstract class AbstractMaterial {
 	protected int width;  // •
 	protected int height;  // ‚‚³
-	
-	public AbstractMaterial(int w, int h) {
+	protected int x;
+	protected int y;
+	public AbstractMaterial(int w, int h, int tx, int ty) {
 		width = w;
 		height = h;
+		x = tx;
+		y = ty;
 	}
-	abstract void draw(Graphics g, int x, int y);
+	abstract void draw(Graphics g);
 }
