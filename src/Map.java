@@ -4,8 +4,8 @@ public class Map {
 	private static Map singleton = new Map();
 	
 	protected int player_x = 10;
-	protected int player_y = 100;
-	protected int buttom = 100;
+	protected int player_y = 200;
+	protected int buttom = 200;
 	
 	private Map() {
 	}
@@ -21,8 +21,8 @@ public class Map {
 	public void playerMove(Player p) {
 		Vector v = p.getMoveDir();
 		
-		if ( player_y < 100 ) { // d—Í
-			v.vertical += 1;
+		if ( player_y <= buttom ) { // d—Í
+			v.vertical += 1; 
 		} else { // –€ŽC—Í
 			if ( v.horizontal > 0 ) {
 				v.horizontal -=1;
@@ -33,8 +33,11 @@ public class Map {
 		p.setMoveDir(v);
 		player_x += v.horizontal;
 		player_y += v.vertical;
+		// ’…’n
 		if ( player_y > buttom ) {
 			player_y = buttom;
+			v.vertical = 0;
+			p.landing();
 		}
 	}
 }

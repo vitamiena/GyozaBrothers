@@ -23,38 +23,34 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	public void init() {	
 		setFocusable(true);
 		addKeyListener(this);
-		player = new Player(10,10);
+		player = new Player(10, 10);
 		map = Map.getInstance();
 	}
 	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		player.move(dir);
+		player.move();
 		dir = NONE;
 		map.playerMove(player);
 		map.draw(g, player);
 	}
 	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		switch (key) {
-		case VK_SPACE: dir = UP; break;
-		case VK_LEFT: dir = LEFT; break;
-		case VK_RIGHT: dir = RIGHT; break;
-		default: dir = NONE; break;			
-		}
+		player.keyController.pressed(e);
 		repaint();
 	}
 	
-	public void keyReleased(KeyEvent e) {}
-	public void keyTyped(KeyEvent e) {}
-	
+	public void keyReleased(KeyEvent e) {
+		player.keyController.released(e);
+		repaint();
+	}
+	public void keyTyped(KeyEvent e) {}	
 
 	public void run() {
 		Thread thisThread = Thread.currentThread();
 		while ( thread == thisThread ) {
 			try {
-				Thread.sleep(100);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {			
 			}
 			repaint();
