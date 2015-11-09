@@ -1,4 +1,6 @@
 import java.awt.Graphics;
+import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JApplet;
@@ -12,23 +14,33 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	int x = 10, y = 100;
 	private Player player;
 	private Map map;
+	private Image img;
+	private Graphics offg;
+	private int width, height;
 	//private KeyController keyController = KeyController.getInstance();
 	
 	@Override
 	public void init() {	
 		setFocusable(true);
-		addKeyListener(this);
-		map = Map.getInstance();
-		player = new Player(10, 10, map.player_x, map.player_y);
+		addKeyListener(this);		
+		Dimension size = getSize();
+		width = size.width;
+		height = size.height;
+		img = createImage(width, height);
+		offg = img.getGraphics();
 		
+		map = Map.getInstance(width, height);
+		player = new Player(10, 10, map.player_x, map.player_y);
 	}
 	
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
+		super.paint(g);		
+		offg.clearRect(0, 0, width, height);
 		player.move();
 		map.playerMove(player);
-		map.draw(g, player);
+		map.draw(offg, player);
+		g.drawImage(img, 0, 0, this);
 	}
 	public void keyPressed(KeyEvent e) {
 		player.keyController.pressed(e);
@@ -44,11 +56,14 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	public void run() {
 		Thread thisThread = Thread.currentThread();
 		while ( thread == thisThread ) {
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {			
+			while ( player.isAlive ) {						
+				repaint();	
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {			
+				}
 			}
-			repaint();
+			stop();
 		}
 		
 	}
