@@ -7,43 +7,43 @@ import Env.*;
 import Material.*;
 
 public class Map {
-	private static Map singleton = new Map();
-	
-	private int player_x;
-	private int player_y;
-	protected int buttom;
-	Structure floor1; 
-	Structure floor2;
+ private static Map singleton = new Map();
 
-	private Map() {
-	}
+  private int player_x = 10;
+  private int player_y = 200;
+  private Enemy enemy;
+  protected int buttom = 200;
+  Structure floor1; 
+  Structure floor2;
+
+  private Map() {
+  }
 
   public int getPlayerX() { return player_x; }
-  
+
   public int getPlayerY() { return player_y; }
-	
-	public static Map getInstance(int width, int height) {
-		singleton.buttom = height - 50;
-    // プレイヤの初期位置
-		singleton.player_x = 10;
-		singleton.player_y = singleton.buttom;
-    
-    // 床の生成
-		singleton.floor1 = new Structure(300, height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
-		singleton.floor2 = new Structure(100, height - singleton.buttom, 350, singleton.buttom+10, Color.ORANGE);
-		return singleton;
-	}
-	
-  // 各要素の描画
-	public void draw(Graphics g, Player p) {
-		p.draw(g);
-		//g.fillRect(0, buttom+p.height+1, 600, 100);
-		floor1.draw(g);
-		floor2.draw(g);
-	}
-	
-  // プレイヤの移動
-	public void playerMove(Player p) {
+  public static Map getInstance(int width, int height) {
+    singleton.buttom = height - 50;
+    singleton.player_x = 10;
+    singleton.player_y = singleton.buttom;
+    singleton.floor1 = new Structure(300, height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
+    singleton.floor2 = new Structure(100, height - singleton.buttom, 350, singleton.buttom+10, Color.ORANGE);
+    singleton.enemy = new Enemy(30, 10, 200, singleton.buttom);
+    return singleton;
+  }
+
+  public void draw(Graphics g, Player p) {
+    p.draw(g);
+    //g.fillRect(0, buttom+p.height+1, 600, 100);
+    floor1.draw(g);
+    floor2.draw(g);
+
+    if (enemy.isAlive()) {
+      enemy.draw(g);
+    }
+  }
+
+  public void playerMove(Player p) {
     try {
       // プレイヤの移動方向の取得
       Vector v = p.getMoveDir();
@@ -52,6 +52,8 @@ public class Map {
       v.vertical += 1; 
       
       // 摩擦力による原則
+      v.vertical += 1; 
+
       if ( v.horizontal > 0 ) {
         v.horizontal -=1;
       } else if ( v.horizontal < 0 ) {
@@ -63,12 +65,32 @@ public class Map {
       p.setX(p.getX() + v.horizontal);
       p.setY(p.getY() + v.vertical);
       // 着地判定
-      if ( p.colidWithStructure(floor1) || p.colidWithStructure(floor2) ) {
+      if ( p.collidWithStructure(floor1) || p.collidWithStructure(floor2) ) {
         p.setY(buttom);
         v.vertical = 0;
         p.landing();
       }
+
+      // エネミー衝突判定
+      if ( p.collidWithEnemy(enemy) ) {
+        if ( p.enemyStamp(enemy) ) {
+          enemy.Dead();
+        } else {
+          p.Dead();
+        }
+      }
     } catch( MaterialsException e ) {
     }
-	}
+  }
+
+  public void enemyMove() {
+    try {
+      Vector v = enemy.getMoveDir();
+
+      enemy.setX(enemy.getX()+v.horizontal);
+      enemy.setY(enemy.getY()+v.vertical);
+
+    } catch( MaterialsException e ) {
+    }
+  }
 }

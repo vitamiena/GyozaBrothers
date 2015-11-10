@@ -50,7 +50,7 @@ abstract class AbstractCharacter extends AbstractMaterial {
 	}
 	
   // StructureƒNƒ‰ƒX‚Æ‚ÌÕ“Ë
-	public boolean colidWithStructure(Structure s) {
+	public boolean collidWithStructure(Structure s) {
 		Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		Rectangle strRec = new Rectangle(s.getX(), s.getY(), s.getWidth(), s.getHeight());
 		
