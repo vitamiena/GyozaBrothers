@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+﻿import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyListener;
@@ -26,11 +26,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	public void init() {	
 		setFocusable(true);
 		addKeyListener(this);		
-		Dimension size = getSize();
+		Dimension size = getSize(); // 画面サイズ
 		width = size.width;
 		height = size.height;
 		img = createImage(width, height);
-		offg = img.getGraphics();
+		offg = img.getGraphics(); // オフスクリーン (必要なし)
 		
 		map = Map.getInstance(width, height);
 		player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
@@ -38,13 +38,14 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);		
+		super.paint(g);
 		offg.clearRect(0, 0, width, height);
-		player.move();
-		map.playerMove(player);
-		map.draw(offg, player);
+		player.move(); // プレイヤの移動方向の設定
+		map.playerMove(player); // プレイヤの画面上の移動
+		map.draw(offg, player); // 要素の描画
 		g.drawImage(img, 0, 0, this);
 	}
+  
 	public void keyPressed(KeyEvent e) {
 		player.keyPressed(e);
 		repaint();
@@ -56,9 +57,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	}
 	public void keyTyped(KeyEvent e) {}	
 
+  // ゲームのループ
 	public void run() {
 		Thread thisThread = Thread.currentThread();
 		while ( thread == thisThread ) {
+      // プレイヤが生存している限りループ
 			while ( player.isAlive() ) {						
 				repaint();	
 				try {
