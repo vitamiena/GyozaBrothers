@@ -5,6 +5,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JApplet;
 import javax.swing.JLabel;
+import Env.*;
+import Material.*;
+import Game.*;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -30,7 +33,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 		offg = img.getGraphics();
 		
 		map = Map.getInstance(width, height);
-		player = new Player(10, 10, map.player_x, map.player_y);
+		player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
 	}
 	
 	@Override
@@ -43,12 +46,12 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 		g.drawImage(img, 0, 0, this);
 	}
 	public void keyPressed(KeyEvent e) {
-		player.keyController.pressed(e);
+		player.keyPressed(e);
 		repaint();
 	}
 	
 	public void keyReleased(KeyEvent e) {
-		player.keyController.released(e);
+		player.keyReleased(e);
 		repaint();
 	}
 	public void keyTyped(KeyEvent e) {}	
@@ -56,7 +59,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	public void run() {
 		Thread thisThread = Thread.currentThread();
 		while ( thread == thisThread ) {
-			while ( player.isAlive ) {						
+			while ( player.isAlive() ) {						
 				repaint();	
 				try {
 					Thread.sleep(50);
