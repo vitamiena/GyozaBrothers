@@ -14,6 +14,7 @@ public class Map {
 	protected int buttom;
 	Structure floor1; 
 	Structure floor2;
+  static Item item[] = new Item[2];
 
 	private Map() {
 	}
@@ -31,6 +32,9 @@ public class Map {
     // 床の生成
 		singleton.floor1 = new Structure(300, height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
 		singleton.floor2 = new Structure(100, height - singleton.buttom, 350, singleton.buttom+10, Color.ORANGE);
+
+    //**追加** アイテムの生成
+    item[0] = new Item(10, 10, 100, singleton.buttom, Color.BLUE);
 		return singleton;
 	}
 	
@@ -40,6 +44,9 @@ public class Map {
 		//g.fillRect(0, buttom+p.height+1, 600, 100);
 		floor1.draw(g);
 		floor2.draw(g);
+    if ( item[0].isVisible() ) {
+      item[0].draw(g);  //追加
+    }
 	}
 	
   // プレイヤの移動
@@ -67,6 +74,10 @@ public class Map {
         p.setY(buttom);
         v.vertical = 0;
         p.landing();
+      }
+      // アイテム衝突判定
+      if ( p.colidWithItem(item[0]) ) {
+        item[0].toInvisible();
       }
     } catch( MaterialsException e ) {
     }
