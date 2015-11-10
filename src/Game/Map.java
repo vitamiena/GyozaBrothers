@@ -9,9 +9,12 @@ import Material.*;
 public class Map {
 	private static Map singleton = new Map();
 	
+  private int width;
+  private int height;
 	private int player_x;
 	private int player_y;
 	protected int buttom;
+  
 	Structure floor1; 
 	Structure floor2;
   static Item item[] = new Item[2];
@@ -23,30 +26,35 @@ public class Map {
   
   public int getPlayerY() { return player_y; }
 	
-	public static Map getInstance(int width, int height) {
-		singleton.buttom = height - 50;
-    // プレイヤの初期位置
-		singleton.player_x = 10;
+	public static Map getInstance(int w, int h) {
+    	singleton.width = w;
+    	singleton.height = h;
+		singleton.buttom = singleton.height - 50;
+    	// プレイヤの初期位置
+		singleton.player_x = singleton.width/2;
 		singleton.player_y = singleton.buttom;
     
-    // 床の生成
-		singleton.floor1 = new Structure(300, height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
-		singleton.floor2 = new Structure(100, height - singleton.buttom, 350, singleton.buttom+10, Color.ORANGE);
+    	// 床の生成
+		singleton.floor1 = new Structure(500, singleton.height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
+		singleton.floor2 = new Structure(500, singleton.height - singleton.buttom, 550, singleton.buttom+10, Color.ORANGE);
 
-    //**追加** アイテムの生成
-    item[0] = new Item(10, 10, 100, singleton.buttom, Color.BLUE);
+	    //**追加** アイテムの生成	
+		item[0] = new Item(10, 10, 100, singleton.buttom, Color.BLUE);
 		return singleton;
 	}
 	
   // 各要素の描画
 	public void draw(Graphics g, Player p) {
-		p.draw(g);
+		p.draw(g, player_x);
 		//g.fillRect(0, buttom+p.height+1, 600, 100);
-		floor1.draw(g);
-		floor2.draw(g);
-    if ( item[0].isVisible() ) {
-      item[0].draw(g);  //追加
-    }
+	    drawStructure(g, floor1, p);
+    	drawStructure(g, floor2, p);
+
+		if ( item[0].isVisible() ) {
+      		drawItem(g, item[0], p);  //追加
+    	}
+		//floor1.draw(g, getRelativePosition(floor1.getX(), p));
+		//floor2.draw(g, getRelativePosition(floor2.getX(), p));
 	}
 	
   // プレイヤの移動
@@ -82,4 +90,33 @@ public class Map {
     } catch( MaterialsException e ) {
     }
 	}
+  
+  public int getRelativePosition(int x, Player p) { //プレイヤとの相対位置
+    return x - p.getX() + player_x;
+  }
+  
+  public void drawStructure(Graphics g, Structure s, Player p) {
+
+    if ( isInScreen(s, p) ) {
+      s.draw(g, getRelativePosition(s.getLeft(), p));
+    }
+  }
+	
+	public void drawItem(Graphics g, Item i, Player p) {
+		if ( isInScreen(i,p) ) {
+			i.draw(g, getRelativePosition(i.getLeft(), p));
+		}
+	}
+  
+  public boolean isInScreen(AbstractMaterial m, Player p) {
+    int left, right;
+    
+    left = getRelativePosition(m.getLeft(), p);
+    right = getRelativePosition(m.getRight(), p);
+    
+    if ( left > width ) { return false; }
+    if ( right < 0 ) { return false; }
+    
+    return true;
+  }
 }

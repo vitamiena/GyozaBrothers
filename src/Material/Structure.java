@@ -16,6 +16,12 @@ public class Structure extends AbstractMaterial {
 		g.setColor(color); // Œš•¨‚ÌF
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
 	}
+  
+  public void draw(Graphics g, int tx) {
+		// TODO Auto-generated method stub
+		g.setColor(color); // Œš•¨‚ÌF
+		g.fillRect(tx, getY(), getWidth(), getHeight());
+	}
 
   public void setX(int t) throws MaterialsException { 
     throw new StructuresChangedException();
