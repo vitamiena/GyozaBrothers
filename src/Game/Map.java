@@ -14,6 +14,7 @@ public class Map {
 	private int player_x;
 	private int player_y;
 	protected int buttom;
+  
 	Structure floor1; 
 	Structure floor2;
 
@@ -30,7 +31,6 @@ public class Map {
 		singleton.buttom = singleton.height - 50;
     // プレイヤの初期位置
 		singleton.player_x = singleton.width/2;
-    //singleton.player_x = width/2;
 		singleton.player_y = singleton.buttom;
     
     // 床の生成
@@ -43,8 +43,10 @@ public class Map {
 	public void draw(Graphics g, Player p) {
 		p.draw(g, player_x);
 		//g.fillRect(0, buttom+p.height+1, 600, 100);
-		floor1.draw(g, getRelativePosition(floor1.getX(), p));
-		floor2.draw(g, getRelativePosition(floor2.getX(), p));
+		//floor1.draw(g, getRelativePosition(floor1.getX(), p));
+		//floor2.draw(g, getRelativePosition(floor2.getX(), p));
+    drawStructure(g, floor1, p);
+    drawStructure(g, floor2, p);
 	}
 	
   // プレイヤの移動
@@ -79,5 +81,24 @@ public class Map {
   
   public int getRelativePosition(int x, Player p) { //プレイヤとの相対位置
     return x - p.getX() + player_x;
+  }
+  
+  public void drawStructure(Graphics g, Structure s, Player p) {
+
+    if ( isInScreen(s, p) ) {
+      s.draw(g, getRelativePosition(s.getLeft(), p));
+    }
+  }
+  
+  public boolean isInScreen(AbstractMaterial m, Player p) {
+    int left, right;
+    
+    left = getRelativePosition(m.getLeft(), p);
+    right = getRelativePosition(m.getRight(), p);
+    
+    if ( left > width ) { return false; }
+    if ( right < 0 ) { return false; }
+    
+    return true;
   }
 }
