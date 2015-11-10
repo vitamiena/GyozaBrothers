@@ -18,7 +18,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	private Player player;
 	private Map map;
 	private Image img;
-	private Graphics offg;
+	private Graphics offg; //画面のバッファ
 	private int width, height;
 	//private KeyController keyController = KeyController.getInstance();
 	
@@ -30,19 +30,19 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 		width = size.width;
 		height = size.height;
 		img = createImage(width, height);
-		offg = img.getGraphics(); // オフスクリーン (必要なし)
+		offg = img.getGraphics(); // オフスクリーン
 		
 		map = Map.getInstance(width, height);
 		player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
 	}
+  
+  public void uopdate(Graphics g) {
+    paint(g);
+  }
 	
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
-		offg.clearRect(0, 0, width, height);
-		player.move(); // プレイヤの移動方向の設定
-		map.playerMove(player); // プレイヤの画面上の移動
-		map.draw(offg, player); // 要素の描画
+
 		g.drawImage(img, 0, 0, this);
 	}
   
@@ -62,7 +62,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 		Thread thisThread = Thread.currentThread();
 		while ( thread == thisThread ) {
       // プレイヤが生存している限りループ
-			while ( player.isAlive() ) {						
+			while ( player.isAlive() ) {	
+        offg.clearRect(0, 0, width, height);
+        player.move(); // プレイヤの移動方向の設定
+        map.playerMove(player); // プレイヤの画面上の移動
+        map.draw(offg, player); // 要素の描画
 				repaint();	
 				try {
 					Thread.sleep(50);
