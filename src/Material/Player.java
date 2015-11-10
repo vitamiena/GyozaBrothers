@@ -74,11 +74,11 @@ public class Player extends AbstractCharacter {
   }
 
   public boolean enemyStamp(Enemy enemy) {
-    int relativeY = enemy.getY()-getY()-enemy.getHeight();
+    int relativeY = Math.abs(enemy.getY()-getY()-enemy.getHeight());
     int relativeRightX = Math.abs(getRight()-enemy.getRight());
     int relativeLeftX = Math.abs(getLeft()-enemy.getLeft());
     
-    if ( -5 < relativeY && relativeY < 5 ) {
+    if ( relativeY < 3 ) {
       if ( relativeRightX < getWidth() || relativeLeftX < getWidth() ) {
         return true;
       }

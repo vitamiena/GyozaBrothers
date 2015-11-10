@@ -7,11 +7,11 @@ import Env.*;
 import Material.*;
 
 public class Map {
- private static Map singleton = new Map();
+  private static Map singleton = new Map();
 
   private int player_x = 10;
   private int player_y = 200;
-  private Enemy enemy;
+  static Enemy enemy;
   protected int buttom = 200;
   Structure floor1; 
   Structure floor2;
@@ -28,7 +28,7 @@ public class Map {
     singleton.player_y = singleton.buttom;
     singleton.floor1 = new Structure(300, height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
     singleton.floor2 = new Structure(100, height - singleton.buttom, 350, singleton.buttom+10, Color.ORANGE);
-    singleton.enemy = new Enemy(30, 10, 200, singleton.buttom);
+    enemy = new Enemy(30, 10, 200, singleton.buttom);
     return singleton;
   }
 
@@ -47,10 +47,10 @@ public class Map {
     try {
       // プレイヤの移動方向の取得
       Vector v = p.getMoveDir();
-      
+
       // 重力による落下
       v.vertical += 1; 
-      
+
       // 摩擦力による原則
       v.vertical += 1; 
 
@@ -59,7 +59,7 @@ public class Map {
       } else if ( v.horizontal < 0 ) {
         v.horizontal += 1;
       }
-      
+
       // 自然の要素(重力、摩擦力)による移動方向の修正
       p.setMoveDir(v);
       p.setX(p.getX() + v.horizontal);
@@ -72,7 +72,7 @@ public class Map {
       }
 
       // エネミー衝突判定
-      if ( p.collidWithEnemy(enemy) ) {
+      if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
         if ( p.enemyStamp(enemy) ) {
           enemy.Dead();
         } else {
