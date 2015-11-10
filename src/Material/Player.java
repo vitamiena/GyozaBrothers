@@ -1,4 +1,4 @@
-ï»¿package Material;
+package Material;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -8,34 +8,34 @@ import Env.*;
 public class Player extends AbstractCharacter {
 	private KeyController keyController = KeyController.getInstance();
 	
-  // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+  // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
   public Player(int w, int h, int x, int y) {
 		super(w, h, x, y);
 	}
 	
-  // æç”»
+  // •`‰æ
 	public void draw(Graphics g) {
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
 	}
 	
-  // ãƒ—ãƒ¬ã‚¤ãƒ¤ã®ç§»å‹• (ã‚­ãƒ¼å…¥åŠ›)
+  // ƒvƒŒƒCƒ„‚ÌˆÚ“® (ƒL[“ü—Í)
 	public void move() {
     Vector v = getMoveDir();
     
-    // ã‚¸ãƒ£ãƒ³ãƒ—ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã¨ã
+    // ƒWƒƒƒ“ƒvƒL[‚ª‰Ÿ‚³‚ê‚½‚Æ‚«
 		if ( keyController.getUp() == KeyController.Key.Press ) {
 			v.vertical -= 10;
 			keyController.setUpKeep();
 		} 
     
-    // å·¦å³ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã¨ã
+    // ¶‰EƒL[‚ª‰Ÿ‚³‚ê‚½‚Æ‚«
 		if ( keyController.getLeft() == KeyController.Key.Press ) {
 			keyController.setLeftKeep();
 		} else if ( keyController.getRight() == KeyController.Key.Press ) {
 			keyController.setRightKeep();
 		} 	
     
-   // å·¦å³ã¸ã®ç§»å‹•æ–¹å‘ã®è¨­å®š
+   // ¶‰E‚Ö‚ÌˆÚ“®•ûŒü‚Ìİ’è
 		if ( keyController.getLeft() == KeyController.Key.Keep ) {
 			v.horizontal = -5;
 		} else if ( keyController.getRight() == KeyController.Key.Keep ) {
@@ -46,17 +46,17 @@ public class Player extends AbstractCharacter {
     setMoveDir(v);
 	}
 	
-  // ç€åœ° (ã‚¸ãƒ£ãƒ³ãƒ—ã‚­ãƒ¼ã®æœ‰åŠ¹åŒ–)
+  // ’…’n (ƒWƒƒƒ“ƒvƒL[‚Ì—LŒø‰»)
 	public void landing() {
 		keyController.setUpRelease();
 	}
   
-  // ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸ
+  // ƒL[‚ª‰Ÿ‚³‚ê‚½
   public void keyPressed(KeyEvent e) {
     keyController.pressed(e);
   }
   
-  // ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸ
+  // ƒL[‚ª—£‚³‚ê‚½
   public void keyReleased(KeyEvent e) {
     keyController.released(e);
   }

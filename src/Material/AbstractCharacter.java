@@ -1,41 +1,41 @@
-ï»¿package Material;
+package Material;
 
 import java.awt.*;
 import Env.*;
 
-// ç”Ÿç‰©ã‚¯ãƒ©ã‚¹
+// ¶•¨ƒNƒ‰ƒX
 abstract class AbstractCharacter extends AbstractMaterial {
-	private boolean isAlive; // ç”Ÿå­˜ãƒ•ãƒ©ã‚°
-	private Vector moveDir;  // ç§»å‹•æ–¹å‘
+	private boolean isAlive; // ¶‘¶ƒtƒ‰ƒO
+	private Vector moveDir;  // ˆÚ“®•ûŒü
 	
-	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆ = ç”Ÿå‘½ã®èª•ç”Ÿ
+	// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬ = ¶–½‚Ì’a¶
 	public AbstractCharacter(int w, int h, int x, int y) {		
 		super(w, h, x, y);
 		isAlive = true;
 		moveDir = new Vector(0,0);
 	} 
 	
-	// æ­»äº¡
+	// €–S
 	public void Dead() {
 		isAlive = false;
 	}
 	
-  // ç”Ÿãã¦ã„ã‚‹ã‹ã©ã†ã‹
+  // ¶‚«‚Ä‚¢‚é‚©‚Ç‚¤‚©
   public boolean isAlive() {
     return isAlive;
   }
   
-	// ã‚²ãƒƒã‚¿ãƒ¼ãƒ»ã‚»ãƒƒã‚¿ãƒ¼
+	// ƒQƒbƒ^[EƒZƒbƒ^[
 	public void setMoveDir(Vector v) {
 		moveDir = v;
 	}
   
-  // ç§»å‹•æ–¹å‘ã®å–å¾—
+  // ˆÚ“®•ûŒü‚Ìæ“¾
 	public Vector getMoveDir() {
 		return moveDir;
 	}
 	
-	// ç§»å‹•
+	// ˆÚ“®
 	public void move(String dir) {
 		/*
 		if ( dir == GameMaster.UP ) {
@@ -49,7 +49,7 @@ abstract class AbstractCharacter extends AbstractMaterial {
 		*/
 	}
 	
-  // Structureã‚¯ãƒ©ã‚¹ã¨ã®è¡çª
+  // StructureƒNƒ‰ƒX‚Æ‚ÌÕ“Ë
 	public boolean colidWithStructure(Structure s) {
 		Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		Rectangle strRec = new Rectangle(s.getX(), s.getY(), s.getWidth(), s.getHeight());

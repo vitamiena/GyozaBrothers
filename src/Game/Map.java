@@ -1,4 +1,4 @@
-ï»¿package Game;
+package Game;
 
 import java.awt.Graphics;
 import java.applet.Applet;
@@ -24,17 +24,17 @@ public class Map {
 	
 	public static Map getInstance(int width, int height) {
 		singleton.buttom = height - 50;
-    // ãƒ—ãƒ¬ã‚¤ãƒ¤ã®åˆæœŸä½ç½®
+    // ƒvƒŒƒCƒ„‚Ì‰ŠúˆÊ’u
 		singleton.player_x = 10;
 		singleton.player_y = singleton.buttom;
     
-    // åºŠã®ç”Ÿæˆ
+    // °‚Ì¶¬
 		singleton.floor1 = new Structure(300, height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
 		singleton.floor2 = new Structure(100, height - singleton.buttom, 350, singleton.buttom+10, Color.ORANGE);
 		return singleton;
 	}
 	
-  // å„è¦ç´ ã®æç”»
+  // Še—v‘f‚Ì•`‰æ
 	public void draw(Graphics g, Player p) {
 		p.draw(g);
 		//g.fillRect(0, buttom+p.height+1, 600, 100);
@@ -42,27 +42,27 @@ public class Map {
 		floor2.draw(g);
 	}
 	
-  // ãƒ—ãƒ¬ã‚¤ãƒ¤ã®ç§»å‹•
+  // ƒvƒŒƒCƒ„‚ÌˆÚ“®
 	public void playerMove(Player p) {
     try {
-      // ãƒ—ãƒ¬ã‚¤ãƒ¤ã®ç§»å‹•æ–¹å‘ã®å–å¾—
+      // ƒvƒŒƒCƒ„‚ÌˆÚ“®•ûŒü‚ÌŽæ“¾
       Vector v = p.getMoveDir();
       
-      // é‡åŠ›ã«ã‚ˆã‚‹è½ä¸‹
+      // d—Í‚É‚æ‚é—Ž‰º
       v.vertical += 1; 
       
-      // æ‘©æ“¦åŠ›ã«ã‚ˆã‚‹åŽŸå‰‡
+      // –€ŽC—Í‚É‚æ‚éŒ´‘¥
       if ( v.horizontal > 0 ) {
         v.horizontal -=1;
       } else if ( v.horizontal < 0 ) {
         v.horizontal += 1;
       }
       
-      // è‡ªç„¶ã®è¦ç´ (é‡åŠ›ã€æ‘©æ“¦åŠ›)ã«ã‚ˆã‚‹ç§»å‹•æ–¹å‘ã®ä¿®æ­£
+      // Ž©‘R‚Ì—v‘f(d—ÍA–€ŽC—Í)‚É‚æ‚éˆÚ“®•ûŒü‚ÌC³
       p.setMoveDir(v);
       p.setX(p.getX() + v.horizontal);
       p.setY(p.getY() + v.vertical);
-      // ç€åœ°åˆ¤å®š
+      // ’…’n”»’è
       if ( p.colidWithStructure(floor1) || p.colidWithStructure(floor2) ) {
         p.setY(buttom);
         v.vertical = 0;

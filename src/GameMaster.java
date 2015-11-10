@@ -1,4 +1,4 @@
-ï»¿import java.awt.Graphics;
+import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyListener;
@@ -26,11 +26,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	public void init() {	
 		setFocusable(true);
 		addKeyListener(this);		
-		Dimension size = getSize(); // ç”»é¢ã‚µã‚¤ã‚º
+		Dimension size = getSize(); // ‰æ–ÊƒTƒCƒY
 		width = size.width;
 		height = size.height;
 		img = createImage(width, height);
-		offg = img.getGraphics(); // ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ (å¿…è¦ãªã—)
+		offg = img.getGraphics(); // ƒIƒtƒXƒNƒŠ[ƒ“ (•K—v‚È‚µ)
 		
 		map = Map.getInstance(width, height);
 		player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
@@ -40,9 +40,9 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 		offg.clearRect(0, 0, width, height);
-		player.move(); // ãƒ—ãƒ¬ã‚¤ãƒ¤ã®ç§»å‹•æ–¹å‘ã®è¨­å®š
-		map.playerMove(player); // ãƒ—ãƒ¬ã‚¤ãƒ¤ã®ç”»é¢ä¸Šã®ç§»å‹•
-		map.draw(offg, player); // è¦ç´ ã®æç”»
+		player.move(); // ƒvƒŒƒCƒ„‚ÌˆÚ“®•ûŒü‚Ìİ’è
+		map.playerMove(player); // ƒvƒŒƒCƒ„‚Ì‰æ–Êã‚ÌˆÚ“®
+		map.draw(offg, player); // —v‘f‚Ì•`‰æ
 		g.drawImage(img, 0, 0, this);
 	}
   
@@ -57,11 +57,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 	}
 	public void keyTyped(KeyEvent e) {}	
 
-  // ã‚²ãƒ¼ãƒ ã®ãƒ«ãƒ¼ãƒ—
+  // ƒQ[ƒ€‚Ìƒ‹[ƒv
 	public void run() {
 		Thread thisThread = Thread.currentThread();
 		while ( thread == thisThread ) {
-      // ãƒ—ãƒ¬ã‚¤ãƒ¤ãŒç”Ÿå­˜ã—ã¦ã„ã‚‹é™ã‚Šãƒ«ãƒ¼ãƒ—
+      // ƒvƒŒƒCƒ„‚ª¶‘¶‚µ‚Ä‚¢‚éŒÀ‚èƒ‹[ƒv
 			while ( player.isAlive() ) {						
 				repaint();	
 				try {

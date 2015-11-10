@@ -1,11 +1,11 @@
-ï»¿package Material;
+package Material;
 
 import java.awt.Graphics;
 
-// ã™ã¹ã¦ã®ç‰©ä½“ã‚¯ãƒ©ã‚¹ãŒç¶™æ‰¿ã™ã¹ãæŠ½è±¡ã‚¯ãƒ©ã‚¹
+// ‚·‚×‚Ä‚Ì•¨‘ÌƒNƒ‰ƒX‚ªŒp³‚·‚×‚«’ŠÛƒNƒ‰ƒX
 abstract class AbstractMaterial {
-	private int width;  // å¹…
-	private int height;  // é«˜ã•
+	private int width;  // •
+	private int height;  // ‚‚³
 	private int x;
 	private int y;
 	public AbstractMaterial(int w, int h, int tx, int ty) {
@@ -14,7 +14,7 @@ abstract class AbstractMaterial {
 		x = tx;
 		y = ty;
 	}
-  // æç”»
+  // •`‰æ
 	abstract public void draw(Graphics g);
   
   public int getX() { return x; }

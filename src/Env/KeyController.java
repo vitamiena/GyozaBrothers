@@ -1,14 +1,14 @@
-ï»¿package Env;
+package Env;
 
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
 
 public class KeyController {
-	public enum Key { Press, Keep, Release } // ã‚­ãƒ¼ã®çŠ¶æ…‹ (æŠ¼ã•ã‚ŒãŸã€æŠ¼ã•ã‚Œç¶šã‘ã¦ã„ã‚‹ã€é›¢ã•ã‚Œã¦ã„ã‚‹)
+	public enum Key { Press, Keep, Release } // ƒL[‚Ìó‘Ô (‰Ÿ‚³‚ê‚½A‰Ÿ‚³‚ê‘±‚¯‚Ä‚¢‚éA—£‚³‚ê‚Ä‚¢‚é)
 	private static KeyController singleton = new KeyController();
-	private Key right = Key.Release; // å³ã‚­ãƒ¼
-	private Key left = Key.Release;  // å·¦ã‚­ãƒ¼
-	private Key up = Key.Release;    // ã‚¸ãƒ£ãƒ³ãƒ—ã‚­ãƒ¼
+	private Key right = Key.Release; // ‰EƒL[
+	private Key left = Key.Release;  // ¶ƒL[
+	private Key up = Key.Release;    // ƒWƒƒƒ“ƒvƒL[
 	
 	private KeyController() {
 	}
@@ -17,21 +17,21 @@ public class KeyController {
 		return singleton;
 	}	
 	
-  // ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã‚‹
+  // ƒL[‚ª‰Ÿ‚³‚ê‚é
 	public void pressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		switch (key) {
-		case VK_SPACE: // ã‚¸ãƒ£ãƒ³ãƒ— 
-			if ( up == Key.Release ) { // ã‚­ãƒ¼ãŒé›¢ã•ã‚Œã¦ã„ã‚‹çŠ¶æ…‹ã®ã¨ã (äºŒæ®µã‚¸ãƒ£ãƒ³ãƒ—ã®ç¦æ­¢)
+		case VK_SPACE: // ƒWƒƒƒ“ƒv 
+			if ( up == Key.Release ) { // ƒL[‚ª—£‚³‚ê‚Ä‚¢‚éó‘Ô‚Ì‚Æ‚« (“ñ’iƒWƒƒƒ“ƒv‚Ì‹Ö~)
 				up = Key.Press; 
 			}
 			break;
-		case VK_LEFT: // å·¦
+		case VK_LEFT: // ¶
 			if ( left == Key.Release ) {
 				left = Key.Press;
 			}
 			break;
-		case VK_RIGHT: // å³
+		case VK_RIGHT: // ‰E
 			if ( right == Key.Release ) {
 				right = Key.Press;
 			}
@@ -40,7 +40,7 @@ public class KeyController {
 		}
 	}
 	
-  // ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸã¨ã (ã‚¸ãƒ£ãƒ³ãƒ—ã¯ã€ç€åœ°ã—ãŸæ™‚ã«ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸåˆ¤å®šã¨ã™ã‚‹)
+  // ƒL[‚ª—£‚³‚ê‚½‚Æ‚« (ƒWƒƒƒ“ƒv‚ÍA’…’n‚µ‚½‚ÉƒL[‚ª—£‚³‚ê‚½”»’è‚Æ‚·‚é)
 	public void released(KeyEvent e) {
 		int key = e.getKeyCode();
 		switch (key) {
