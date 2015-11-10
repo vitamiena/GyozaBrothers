@@ -17,6 +17,10 @@ public class Player extends AbstractCharacter {
 	public void draw(Graphics g) {
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
 	}
+  
+  public void draw(Graphics g, int tx) {
+    g.drawRect(tx, getY(), getWidth(), getHeight());
+  }
 	
   // プレイヤの移動 (キー入力)
 	public void move() {

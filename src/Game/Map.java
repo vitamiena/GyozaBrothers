@@ -9,6 +9,8 @@ import Material.*;
 public class Map {
 	private static Map singleton = new Map();
 	
+  private int width;
+  private int height;
 	private int player_x;
 	private int player_y;
 	protected int buttom;
@@ -22,24 +24,27 @@ public class Map {
   
   public int getPlayerY() { return player_y; }
 	
-	public static Map getInstance(int width, int height) {
-		singleton.buttom = height - 50;
+	public static Map getInstance(int w, int h) {
+    singleton.width = w;
+    singleton.height = h;
+		singleton.buttom = singleton.height - 50;
     // プレイヤの初期位置
-		singleton.player_x = 10;
+		singleton.player_x = singleton.width/2;
+    //singleton.player_x = width/2;
 		singleton.player_y = singleton.buttom;
     
     // 床の生成
-		singleton.floor1 = new Structure(300, height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
-		singleton.floor2 = new Structure(100, height - singleton.buttom, 350, singleton.buttom+10, Color.ORANGE);
+		singleton.floor1 = new Structure(500, singleton.height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
+		singleton.floor2 = new Structure(500, singleton.height - singleton.buttom, 550, singleton.buttom+10, Color.ORANGE);
 		return singleton;
 	}
 	
   // 各要素の描画
 	public void draw(Graphics g, Player p) {
-		p.draw(g);
+		p.draw(g, player_x);
 		//g.fillRect(0, buttom+p.height+1, 600, 100);
-		floor1.draw(g);
-		floor2.draw(g);
+		floor1.draw(g, getRelativePosition(floor1.getX(), p));
+		floor2.draw(g, getRelativePosition(floor2.getX(), p));
 	}
 	
   // プレイヤの移動
@@ -71,4 +76,8 @@ public class Map {
     } catch( MaterialsException e ) {
     }
 	}
+  
+  public int getRelativePosition(int x, Player p) { //プレイヤとの相対位置
+    return x - p.getX() + player_x;
+  }
 }
