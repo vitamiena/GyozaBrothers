@@ -13,7 +13,7 @@ public class Structure extends AbstractMaterial {
   // 描画
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(color);
+		g.setColor(color); // 建物の色
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
 	}
 

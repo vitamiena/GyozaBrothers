@@ -21,15 +21,21 @@ public class Player extends AbstractCharacter {
   // プレイヤの移動 (キー入力)
 	public void move() {
     Vector v = getMoveDir();
+    
+    // ジャンプキーが押されたとき
 		if ( keyController.getUp() == KeyController.Key.Press ) {
 			v.vertical -= 10;
 			keyController.setUpKeep();
 		} 
+    
+    // 左右キーが押されたとき
 		if ( keyController.getLeft() == KeyController.Key.Press ) {
 			keyController.setLeftKeep();
 		} else if ( keyController.getRight() == KeyController.Key.Press ) {
 			keyController.setRightKeep();
 		} 	
+    
+   // 左右への移動方向の設定
 		if ( keyController.getLeft() == KeyController.Key.Keep ) {
 			v.horizontal = -5;
 		} else if ( keyController.getRight() == KeyController.Key.Keep ) {
