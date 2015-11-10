@@ -1,18 +1,25 @@
+package Material;
+
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.*;
+import Env.*;
 
 public class Player extends AbstractCharacter {
-	public KeyController keyController = KeyController.getInstance();
-	public Player(int w, int h, int x, int y) {
+	private KeyController keyController = KeyController.getInstance();
+	
+  public Player(int w, int h, int x, int y) {
 		super(w, h, x, y);
 	}
 	
 	public void draw(Graphics g) {
-		g.drawRect(x, y, width, height);
+		g.drawRect(getX(), getY(), getWidth(), getHeight());
 	}
 	
 	public void move() {
+    Vector v = getMoveDir();
 		if ( keyController.getUp() == KeyController.Key.Press ) {
-			moveDir.vertical -= 10;
+			v.vertical -= 10;
 			keyController.setUpKeep();
 		} 
 		if ( keyController.getLeft() == KeyController.Key.Press ) {
@@ -21,15 +28,24 @@ public class Player extends AbstractCharacter {
 			keyController.setRightKeep();
 		} 	
 		if ( keyController.getLeft() == KeyController.Key.Keep ) {
-			moveDir.horizontal = -5;
+			v.horizontal = -5;
 		} else if ( keyController.getRight() == KeyController.Key.Keep ) {
-			moveDir.horizontal = 5;
+			v.horizontal = 5;
 		} else {
-			moveDir.horizontal = 0;
+			v.horizontal = 0;
 		}
+    setMoveDir(v);
 	}
 	
 	public void landing() {
 		keyController.setUpRelease();
 	}
+  
+  public void keyPressed(KeyEvent e) {
+    keyController.pressed(e);
+  }
+  
+  public void keyReleased(KeyEvent e) {
+    keyController.released(e);
+  }
 }

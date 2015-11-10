@@ -1,18 +1,26 @@
+package Game;
+
 import java.awt.Graphics;
 import java.applet.Applet;
 import java.awt.Color;
+import Env.*;
+import Material.*;
 
 public class Map {
 	private static Map singleton = new Map();
 	
-	protected int player_x = 10;
-	protected int player_y = 200;
+	private int player_x = 10;
+	private int player_y = 200;
 	protected int buttom = 200;
 	Structure floor1; 
 	Structure floor2;
 
 	private Map() {
 	}
+
+  public int getPlayerX() { return player_x; }
+  
+  public int getPlayerY() { return player_y; }
 	
 	public static Map getInstance(int width, int height) {
 		singleton.buttom = height - 50;
@@ -31,24 +39,27 @@ public class Map {
 	}
 	
 	public void playerMove(Player p) {
-		Vector v = p.getMoveDir();
-		
-		v.vertical += 1; 
-		
-		if ( v.horizontal > 0 ) {
-			v.horizontal -=1;
-		} else if ( v.horizontal < 0 ) {
-			v.horizontal += 1;
-		}
-		
-		p.setMoveDir(v);
-		p.x += v.horizontal;
-		p.y += v.vertical;
-		// ’…’n
-		if ( p.colidWithStructure(floor1) || p.colidWithStructure(floor2) ) {
-			p.y = buttom;
-			v.vertical = 0;
-			p.landing();
-		}
+    try {
+      Vector v = p.getMoveDir();
+      
+      v.vertical += 1; 
+      
+      if ( v.horizontal > 0 ) {
+        v.horizontal -=1;
+      } else if ( v.horizontal < 0 ) {
+        v.horizontal += 1;
+      }
+      
+      p.setMoveDir(v);
+      p.setX(p.getX() + v.horizontal);
+      p.setY(p.getY() + v.vertical);
+      // ’…’n
+      if ( p.colidWithStructure(floor1) || p.colidWithStructure(floor2) ) {
+        p.setY(buttom);
+        v.vertical = 0;
+        p.landing();
+      }
+    } catch( MaterialsException e ) {
+    }
 	}
 }

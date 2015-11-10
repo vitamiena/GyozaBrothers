@@ -1,9 +1,12 @@
+package Material;
+
 import java.awt.*;
+import Env.*;
 
 // 生物クラス
 abstract class AbstractCharacter extends AbstractMaterial {
-	protected boolean isAlive; // 生存フラグ
-	protected Vector moveDir; 
+	private boolean isAlive; // 生存フラグ
+	private Vector moveDir; 
 	
 	// インスタンスの生成 = 生命の誕生
 	public AbstractCharacter(int w, int h, int x, int y) {		
@@ -17,6 +20,10 @@ abstract class AbstractCharacter extends AbstractMaterial {
 		isAlive = false;
 	}
 	
+  public boolean isAlive() {
+    return isAlive;
+  }
+  
 	// ゲッター・セッター
 	public void setMoveDir(Vector v) {
 		moveDir = v;
@@ -40,8 +47,8 @@ abstract class AbstractCharacter extends AbstractMaterial {
 	}
 	
 	public boolean colidWithStructure(Structure s) {
-		Rectangle playerRec = new Rectangle(x, y, width, height);
-		Rectangle strRec = new Rectangle(s.x, s.y, s.width, s.height);
+		Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
+		Rectangle strRec = new Rectangle(s.getX(), s.getY(), s.getWidth(), s.getHeight());
 		
 		if ( playerRec.intersects(strRec) ) {
 			return true;
