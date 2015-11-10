@@ -1,38 +1,41 @@
-package Material;
+ï»¿package Material;
 
 import java.awt.*;
 import Env.*;
 
-// ¶•¨ƒNƒ‰ƒX
+// ç”Ÿç‰©ã‚¯ãƒ©ã‚¹
 abstract class AbstractCharacter extends AbstractMaterial {
-	private boolean isAlive; // ¶‘¶ƒtƒ‰ƒO
-	private Vector moveDir; 
+	private boolean isAlive; // ç”Ÿå­˜ãƒ•ãƒ©ã‚°
+	private Vector moveDir;  // ç§»å‹•æ–¹å‘
 	
-	// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬ = ¶–½‚Ì’a¶
+	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆ = ç”Ÿå‘½ã®èª•ç”Ÿ
 	public AbstractCharacter(int w, int h, int x, int y) {		
 		super(w, h, x, y);
 		isAlive = true;
 		moveDir = new Vector(0,0);
 	} 
 	
-	// €–S
+	// æ­»äº¡
 	public void Dead() {
 		isAlive = false;
 	}
 	
+  // ç”Ÿãã¦ã„ã‚‹ã‹ã©ã†ã‹
   public boolean isAlive() {
     return isAlive;
   }
   
-	// ƒQƒbƒ^[EƒZƒbƒ^[
+	// ã‚²ãƒƒã‚¿ãƒ¼ãƒ»ã‚»ãƒƒã‚¿ãƒ¼
 	public void setMoveDir(Vector v) {
 		moveDir = v;
 	}
+  
+  // ç§»å‹•æ–¹å‘ã®å–å¾—
 	public Vector getMoveDir() {
 		return moveDir;
 	}
 	
-	// ˆÚ“®
+	// ç§»å‹•
 	public void move(String dir) {
 		/*
 		if ( dir == GameMaster.UP ) {
@@ -46,6 +49,7 @@ abstract class AbstractCharacter extends AbstractMaterial {
 		*/
 	}
 	
+  // Structureã‚¯ãƒ©ã‚¹ã¨ã®è¡çª
 	public boolean colidWithStructure(Structure s) {
 		Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		Rectangle strRec = new Rectangle(s.getX(), s.getY(), s.getWidth(), s.getHeight());

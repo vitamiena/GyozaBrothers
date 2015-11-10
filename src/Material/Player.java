@@ -1,4 +1,4 @@
-package Material;
+﻿package Material;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -8,14 +8,17 @@ import Env.*;
 public class Player extends AbstractCharacter {
 	private KeyController keyController = KeyController.getInstance();
 	
+  // コンストラクタ
   public Player(int w, int h, int x, int y) {
 		super(w, h, x, y);
 	}
 	
+  // 描画
 	public void draw(Graphics g) {
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
 	}
 	
+  // プレイヤの移動 (キー入力)
 	public void move() {
     Vector v = getMoveDir();
 		if ( keyController.getUp() == KeyController.Key.Press ) {
@@ -37,14 +40,17 @@ public class Player extends AbstractCharacter {
     setMoveDir(v);
 	}
 	
+  // 着地 (ジャンプキーの有効化)
 	public void landing() {
 		keyController.setUpRelease();
 	}
   
+  // キーが押された
   public void keyPressed(KeyEvent e) {
     keyController.pressed(e);
   }
   
+  // キーが離された
   public void keyReleased(KeyEvent e) {
     keyController.released(e);
   }

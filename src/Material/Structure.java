@@ -1,4 +1,4 @@
-package Material;
+﻿package Material;
 
 import java.awt.Graphics;
 import java.awt.Color;
@@ -10,6 +10,7 @@ public class Structure extends AbstractMaterial {
 		color = c;
 	}
 	
+  // 描画
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		g.setColor(color);
