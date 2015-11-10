@@ -17,6 +17,7 @@ public class Map {
   
 	Structure floor1; 
 	Structure floor2;
+  static Item item[] = new Item[2];
 
 	private Map() {
 	}
@@ -26,16 +27,19 @@ public class Map {
   public int getPlayerY() { return player_y; }
 	
 	public static Map getInstance(int w, int h) {
-    singleton.width = w;
-    singleton.height = h;
+    	singleton.width = w;
+    	singleton.height = h;
 		singleton.buttom = singleton.height - 50;
-    // プレイヤの初期位置
+    	// プレイヤの初期位置
 		singleton.player_x = singleton.width/2;
 		singleton.player_y = singleton.buttom;
     
-    // 床の生成
+    	// 床の生成
 		singleton.floor1 = new Structure(500, singleton.height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
 		singleton.floor2 = new Structure(500, singleton.height - singleton.buttom, 550, singleton.buttom+10, Color.ORANGE);
+
+	    //**追加** アイテムの生成	
+		item[0] = new Item(10, 10, 100, singleton.buttom, Color.BLUE);
 		return singleton;
 	}
 	
@@ -43,10 +47,14 @@ public class Map {
 	public void draw(Graphics g, Player p) {
 		p.draw(g, player_x);
 		//g.fillRect(0, buttom+p.height+1, 600, 100);
+	    drawStructure(g, floor1, p);
+    	drawStructure(g, floor2, p);
+
+		if ( item[0].isVisible() ) {
+      		drawItem(g, item[0], p);  //追加
+    	}
 		//floor1.draw(g, getRelativePosition(floor1.getX(), p));
 		//floor2.draw(g, getRelativePosition(floor2.getX(), p));
-    drawStructure(g, floor1, p);
-    drawStructure(g, floor2, p);
 	}
 	
   // プレイヤの移動
@@ -75,6 +83,10 @@ public class Map {
         v.vertical = 0;
         p.landing();
       }
+      // アイテム衝突判定
+      if ( p.colidWithItem(item[0]) ) {
+        item[0].toInvisible();
+      }
     } catch( MaterialsException e ) {
     }
 	}
@@ -89,6 +101,12 @@ public class Map {
       s.draw(g, getRelativePosition(s.getLeft(), p));
     }
   }
+	
+	public void drawItem(Graphics g, Item i, Player p) {
+		if ( isInScreen(i,p) ) {
+			i.draw(g, getRelativePosition(i.getLeft(), p));
+		}
+	}
   
   public boolean isInScreen(AbstractMaterial m, Player p) {
     int left, right;
