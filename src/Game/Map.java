@@ -67,56 +67,50 @@ public class Map {
   
   // プレイヤの移動
   public void playerMove(Player p) {
-    try {
-      // プレイヤの移動方向の取得
-      Vector v = p.getMoveDir();
-        
-      // 重力による落下
-      v.vertical += 1; 
-        
-      // 摩擦力による減速
-      if ( v.horizontal > 0 ) {
-        v.horizontal -=1;
-      } else if ( v.horizontal < 0 ) {
-        v.horizontal += 1;
-      }
+    // プレイヤの移動方向の取得
+    Vector v = p.getMoveDir();
       
-      // 自然の要素(重力、摩擦力)による移動方向の修正
-      p.setMoveDir(v);
-      p.setX(p.getX() + v.horizontal);
-      p.setY(p.getY() + v.vertical);
-      // 着地判定
-      if ( p.collidWithStructure(floor1) || p.collidWithStructure(floor2) ) {
-        p.setY(buttom);
-          v.vertical = 0;
-          p.landing();
-      }
+    // 重力による落下
+    v.vertical += 1; 
+      
+    // 摩擦力による減速
+    if ( v.horizontal > 0 ) {
+      v.horizontal -=1;
+    } else if ( v.horizontal < 0 ) {
+      v.horizontal += 1;
+    }
+    
+    // 自然の要素(重力、摩擦力)による移動方向の修正
+    p.setMoveDir(v);
+    p.setX(p.getX() + v.horizontal);
+    p.setY(p.getY() + v.vertical);
+    // 着地判定
+    if ( p.collidWithStructure(floor1) || p.collidWithStructure(floor2) ) {
+      p.setY(buttom);
+        v.vertical = 0;
+        p.landing();
+    }
 
-      // エネミー衝突判定
-      if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
-        if ( p.enemyStamp(enemy) ) {
-          enemy.Dead();
-        } else {
-          p.Dead();
-        }
+    // エネミー衝突判定
+    if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
+      if ( p.enemyStamp(enemy) ) {
+        enemy.dead();
+      } else {
+        p.dead();
       }
+    }
 
-      // アイテム衝突判定
-      if ( p.colidWithItem(item[0]) ) {
-        item[0].toInvisible();
-      }
-    } catch( MaterialsException e ) {
+    // アイテム衝突判定
+    if ( p.colidWithItem(item[0]) ) {
+      item[0].toInvisible();
     }
   }
   
   public void enemyMove() {
-    try {
-      Vector v = enemy.getMoveDir();
+    Vector v = enemy.getMoveDir();
 
-      enemy.setX(enemy.getX()+v.horizontal);
-      enemy.setY(enemy.getY()+v.vertical);
-    } catch( MaterialsException e ) {
-    }
+    enemy.setX(enemy.getX()+v.horizontal);
+    enemy.setY(enemy.getY()+v.vertical);
   }
   
   public int getRelativePosition(int x, Player p) { //プレイヤとの相対位置
@@ -141,7 +135,6 @@ public class Map {
       enemy.draw(g, getRelativePosition(enemy.getLeft(), p));
     }
   }
-  
   public boolean isInScreen(AbstractMaterial m, Player p) {
     int left, right;
    

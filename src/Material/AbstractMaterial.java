@@ -25,8 +25,8 @@ abstract public class AbstractMaterial {
   public int getLeft() { return x; }
   public int getRight() { return x+width; }
 
-  public void setX(int t) throws MaterialsException { x = t; }
-  public void setY(int t) throws MaterialsException { y = t; }
-  public void setWidth(int t) throws MaterialsException { width = t; }
-  public void setHeight(int t) throws MaterialsException { height = t; }
+  public void setX(int t) { x = t; }
+  public void setY(int t) { y = t; }
+  public void setWidth(int t) { width = t; }
+  public void setHeight(int t) { height = t; }
 }

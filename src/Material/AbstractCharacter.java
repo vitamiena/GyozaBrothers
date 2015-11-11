@@ -16,8 +16,13 @@ abstract class AbstractCharacter extends AbstractMaterial {
   }
 
   // €–S
-  public void Dead() {
+  public void dead() {
     isAlive = false;
+  }
+  
+  // •œŠˆ
+  public void reborn() {
+    isAlive = true;
   }
 
   // ¶‚«‚Ä‚¢‚é‚©‚Ç‚¤‚©

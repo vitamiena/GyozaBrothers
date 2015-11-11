@@ -31,21 +31,5 @@ public class Item extends AbstractMaterial {
   public void toInvisible () {
     isVisible = false;
   }
-
-  public void setX(int t) throws MaterialsException { 
-    throw new StructuresChangedException();
-  }
-  
-  public void setY(int t) throws MaterialsException { 
-    throw new StructuresChangedException();
-  }
-  
-  public void setWidth(int t) throws MaterialsException { 
-    throw new StructuresChangedException();
-  }
-  
-  public void setHeight(int t) throws MaterialsException { 
-    throw new StructuresChangedException();
-  }
 }
 
