@@ -74,9 +74,7 @@ public class Map {
           // d—Í‚É‚æ‚é—Ž‰º
           v.vertical += 1; 
           
-          // –€ŽC—Í‚É‚æ‚éŒ´‘¥
-          v.vertical += 1; 
-          
+          // –€ŽC—Í‚É‚æ‚éŒ¸‘¬
           if ( v.horizontal > 0 ) {
             v.horizontal -=1;
           } else if ( v.horizontal < 0 ) {
