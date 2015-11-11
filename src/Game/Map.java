@@ -18,9 +18,8 @@ public class Map {
     
     Structure floor1; 
     Structure floor2;
-    static Item item[] = new Item[2];
-    
-    static Enemy enemy;
+    private Item item[] = new Item[2];
+    private Enemy enemy;
     
     private Map() {
     }
@@ -42,10 +41,10 @@ public class Map {
         singleton.floor2 = new Structure(500, singleton.height - singleton.buttom, 550, singleton.buttom+10, Color.ORANGE);
         
         // アイテムの生成	
-        item[0] = new Item(10, 10, 100, singleton.buttom, Color.BLUE);
+        singleton.item[0] = new Item(10, 10, 100, singleton.buttom, Color.BLUE);
 
         // エネミーの生成	
-        enemy = new Enemy(30, 10, 200, singleton.buttom);
+        singleton.enemy = new Enemy(30, 10, 200, singleton.buttom, Color.RED);
       return singleton;
     }
   
@@ -60,7 +59,7 @@ public class Map {
           drawItem(g, item[0], p);  //追加
         }
       if (enemy.isAlive()) {
-        enemy.draw(g);
+        drawEnemy(g, enemy, p);
       }
       //floor1.draw(g, getRelativePosition(floor1.getX(), p));
       //floor2.draw(g, getRelativePosition(floor2.getX(), p));
@@ -137,6 +136,12 @@ public class Map {
         i.draw(g, getRelativePosition(i.getLeft(), p));
       }
     }
+
+    public void drawEnemy(Graphics g, Enemy enemy, Player p) {
+      if ( isInScreen(enemy,p) ) {
+        enemy.draw(g, getRelativePosition(enemy.getLeft(), p));
+      }
+    }
   
     public boolean isInScreen(AbstractMaterial m, Player p) {
       int left, right;
