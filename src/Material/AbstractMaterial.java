@@ -24,6 +24,8 @@ abstract public class AbstractMaterial {
   public int getHeight() { return height; }
   public int getLeft() { return x; }
   public int getRight() { return x+width; }
+  public int getTop() { return y; }
+  public int getBottom() { return y + height; }
 
   public void setX(int t) { x = t; }
   public void setY(int t) { y = t; }

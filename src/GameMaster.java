@@ -29,7 +29,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     Dimension size = getSize(); // 画面サイズ
     width = size.width;
     height = size.height;
-    img = createImage(width, height);
+    img = createImage(width, height+100);
     offg = img.getGraphics(); // オフスクリーン
     
     map = Map.getInstance(width, height);
@@ -69,11 +69,12 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         map.draw(offg, player); // 要素の描画
         repaint();  
         try {
-          Thread.sleep(50);
+          Thread.sleep(10);
         } catch (InterruptedException e) {      
         }
       }
-      stop();
+      map.retry(player);
+      //stop();
     }
   }
   

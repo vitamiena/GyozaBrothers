@@ -15,6 +15,7 @@ public class Map {
   private int player_x;
   private int player_y;
   protected int buttom;
+  private int check_point = 600;
     
   Structure floor1; 
   Structure floor2;
@@ -91,6 +92,12 @@ public class Map {
         p.landing();
     }
 
+    // 死亡判定
+    if ( p.getTop() > height ) {
+      p.dead();
+      return;
+    }
+    
     // エネミー衝突判定
     if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
       if ( p.enemyStamp(enemy) ) {
@@ -145,5 +152,16 @@ public class Map {
     if ( right < 0 ) { return false; }
     
     return true;
+  }
+  
+  public void retry(Player p) {
+    if ( p.getLeft() <= check_point ) {
+      p.setX(player_x);
+      p.setY(player_y);
+    } else {
+      p.setX(check_point);
+      p.setY(player_y);
+    }
+    p.reborn();
   }
 }
