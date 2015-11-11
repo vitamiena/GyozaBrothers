@@ -3,7 +3,7 @@ package Material;
 import java.awt.Graphics;
 
 // すべての物体クラスが継承すべき抽象クラス
-abstract class AbstractMaterial {
+abstract public class AbstractMaterial {
 	private int width;  // 幅
 	private int height;  // 高さ
 	private int x;
