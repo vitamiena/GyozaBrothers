@@ -15,7 +15,7 @@ public class KeyController {
 
   public static KeyController getInstance() {
     return singleton;
-  }	
+  } 
 
   // ÉLÅ[Ç™âüÇ≥ÇÍÇÈ
   public void pressed(KeyEvent e) {
@@ -36,7 +36,7 @@ public class KeyController {
           right = Key.Press;
         }
         break;
-      default: ; break;			
+      default: ; break;     
     }
   }
 
@@ -46,8 +46,8 @@ public class KeyController {
     switch (key) {
       case VK_LEFT: left = Key.Release; break;
       case VK_RIGHT: right = Key.Release; break;
-      default: ; break;			
-    }		
+      default: ; break;     
+    }   
   }
 
   public Key getRight() {
@@ -61,7 +61,7 @@ public class KeyController {
   }
   public void setUpKeep() {
     up = Key.Keep;
-  } 	
+  }   
   public void setUpRelease() {
     up = Key.Release;
   }

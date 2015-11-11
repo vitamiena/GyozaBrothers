@@ -47,7 +47,5 @@ public class Item extends AbstractMaterial {
   public void setHeight(int t) throws MaterialsException { 
     throw new StructuresChangedException();
   }
-
-
 }
 
