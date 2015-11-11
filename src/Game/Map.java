@@ -137,21 +137,21 @@ public class Map {
       }
     }
 
-    public void drawEnemy(Graphics g, Enemy enemy, Player p) {
-      if ( isInScreen(enemy,p) ) {
-        enemy.draw(g, getRelativePosition(enemy.getLeft(), p));
-      }
-    }
+  public void drawEnemy(Graphics g, Enemy enemy, Player p) {
+    if ( isInScreen(enemy,p) ) {
+      enemy.draw(g, getRelativePosition(enemy.getLeft(), p));
+    }
+  }
   
     public boolean isInScreen(AbstractMaterial m, Player p) {
       int left, right;
-        
+     
       left = getRelativePosition(m.getLeft(), p);
       right = getRelativePosition(m.getRight(), p);
-        
+      
       if ( left > width ) { return false; }
       if ( right < 0 ) { return false; }
-            
+      
       return true;
     }
 }

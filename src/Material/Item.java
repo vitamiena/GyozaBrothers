@@ -18,11 +18,11 @@ public class Item extends AbstractMaterial {
     g.setColor(color);
     g.fillRect(getX(), getY(), getWidth(), getHeight()); 
   }
-	
-	public void draw(Graphics g, int tx) {
-		g.setColor(color);
-		g.fillRect(tx, getY(), getWidth(), getHeight());
-	}
+
+  public void draw(Graphics g, int tx) {
+    g.setColor(color);
+    g.fillRect(tx, getY(), getWidth(), getHeight());
+  }
 
   public boolean isVisible() {
     return isVisible;
