@@ -29,23 +29,27 @@ public class Map {
     
   public int getPlayerY() { return player_y; }
     
-  public static Map getInstance(int w, int h) {
-    singleton.width = w;
-    singleton.height = h;
-    singleton.buttom = singleton.height - 50;
+  public void initMap(int w, int h) {
+    width = w;
+    height = h;
+    buttom = height - 50;
     // プレイヤの初期位置
-    singleton.player_x = singleton.width/2;
-    singleton.player_y = singleton.buttom;
+    player_x = width/2;
+    player_y = buttom;
     
     // 床の生成
-    singleton.floor1 = new Structure(500, singleton.height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
-    singleton.floor2 = new Structure(500, singleton.height - singleton.buttom, 550, singleton.buttom+10, Color.ORANGE);
+    floor1 = new Structure(500, height - buttom, 0, buttom+10, Color.ORANGE);
+    floor2 = new Structure(500, height - buttom, 550, buttom+10, Color.ORANGE);
     
     // アイテムの生成	
-    singleton.item[0] = new Item(10, 10, 100, singleton.buttom, Color.BLUE);
+    item[0] = new Item(10, 10, 100, buttom, Color.BLUE);
 
     // エネミーの生成	
-    singleton.enemy = new Enemy(30, 10, 200, singleton.buttom, Color.RED);
+    enemy = new Enemy(30, 10, 200, buttom, Color.RED);
+  }  
+  
+  public static Map getInstance(int w, int h) {
+    singleton.initMap(w, h);
     return singleton;
   }
   
@@ -167,6 +171,13 @@ public class Map {
       p.setX(check_point);
       p.setY(player_y);
     }
+    p.reborn();
+  }
+  
+  public void reset(Player p) {
+    initMap(width, height);
+    p.setX(player_x);
+    p.setY(player_y);
     p.reborn();
   }
 }

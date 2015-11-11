@@ -13,8 +13,6 @@ import static java.awt.event.KeyEvent.*;
 
 public class GameMaster extends JApplet implements Runnable, KeyListener {
   private Thread thread = null;
-  JLabel lb = new JLabel();
-  int x = 10, y = 100;
   private Player player;
   private Map map;
   private Image img;
@@ -73,8 +71,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         } catch (InterruptedException e) {      
         }
       }
-      map.retry(player);
-      //stop();
+      stop();
     }
   }
   
