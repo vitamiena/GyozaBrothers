@@ -65,6 +65,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 			while ( player.isAlive() ) {	
         offg.clearRect(0, 0, width, height);
         player.move(); // プレイヤの移動方向の設定
+        map.enemyMove();
         map.playerMove(player); // プレイヤの画面上の移動
         map.draw(offg, player); // 要素の描画
 				repaint();	
