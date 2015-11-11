@@ -68,30 +68,8 @@ public class Map {
   
   // プレイヤの移動
   public void playerMove(Player p) {
-    // プレイヤの移動方向の取得
-    Vector v = p.getMoveDir();
-      
-    // 重力による落下
-    v.vertical += 1; 
-      
-    // 摩擦力による減速
-    if ( v.horizontal > 0 ) {
-      v.horizontal -=1;
-    } else if ( v.horizontal < 0 ) {
-      v.horizontal += 1;
-    }
+    characterMove(p);
     
-    // 自然の要素(重力、摩擦力)による移動方向の修正
-    p.setMoveDir(v);
-    p.setX(p.getX() + v.horizontal);
-    p.setY(p.getY() + v.vertical);
-    // 着地判定
-    if ( p.collidWithStructure(floor1) || p.collidWithStructure(floor2) ) {
-      p.setY(buttom);
-        v.vertical = 0;
-        p.landing();
-    }
-
     // 死亡判定
     if ( p.getTop() > height ) {
       p.dead();
@@ -115,9 +93,36 @@ public class Map {
   
   public void enemyMove() {
     Vector v = enemy.getMoveDir();
-
-    enemy.setX(enemy.getX()+v.horizontal);
-    enemy.setY(enemy.getY()+v.vertical);
+    v.horizontal = -2;
+    enemy.setMoveDir(v);
+    characterMove(enemy);
+  }
+  
+  // キャラクタの移動 (プレイヤ、エネミー共通)
+  public void characterMove(AbstractCharacter c) {
+    // プレイヤの移動方向の取得
+    Vector v = c.getMoveDir();
+      
+    // 重力による落下
+    v.vertical += 1; 
+      
+    // 摩擦力による減速
+    if ( v.horizontal > 0 ) {
+      v.horizontal -=1;
+    } else if ( v.horizontal < 0 ) {
+      v.horizontal += 1;
+    }
+    
+    // 自然の要素(重力、摩擦力)による移動方向の修正
+    c.setMoveDir(v);
+    c.setX(c.getX() + v.horizontal);
+    c.setY(c.getY() + v.vertical);
+    // 着地判定
+    if ( c.collidWithStructure(floor1) || c.collidWithStructure(floor2) ) {
+      c.setY(buttom);
+      v.vertical = 0;
+      c.landing();
+    }
   }
   
   public int getRelativePosition(int x, Player p) { //プレイヤとの相対位置

@@ -4,7 +4,7 @@ import java.awt.*;
 import Env.*;
 
 // 生物クラス
-abstract class AbstractCharacter extends AbstractMaterial {
+abstract public class AbstractCharacter extends AbstractMaterial {
   private boolean isAlive; // 生存フラグ
   private Vector moveDir;  // 移動方向
 
@@ -53,6 +53,8 @@ abstract class AbstractCharacter extends AbstractMaterial {
        }
        */
   }
+  
+  abstract public void landing();
 
   // Structureクラスとの衝突
   public boolean collidWithStructure(Structure s) {

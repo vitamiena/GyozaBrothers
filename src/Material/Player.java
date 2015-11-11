@@ -30,7 +30,7 @@ public class Player extends AbstractCharacter {
       // ジャンプキーが押されたとき
       if ( keyController.getUp() == KeyController.Key.Press ) {
         v.vertical -= 10;
-          keyController.setUpKeep();
+        keyController.setUpKeep();
       } 
 
       // 左右キーが押されたとき
