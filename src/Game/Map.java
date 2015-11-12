@@ -15,6 +15,7 @@ public class Map {
   private int player_x;
   private int player_y;
   protected int buttom;
+  private int check_point = 600;
     
   Structure floor1; 
   Structure floor2;
@@ -28,23 +29,27 @@ public class Map {
     
   public int getPlayerY() { return player_y; }
     
-  public static Map getInstance(int w, int h) {
-    singleton.width = w;
-    singleton.height = h;
-    singleton.buttom = singleton.height - 50;
+  public void initMap(int w, int h) {
+    width = w;
+    height = h;
+    buttom = height - 50;
     // プレイヤの初期位置
-    singleton.player_x = singleton.width/2;
-    singleton.player_y = singleton.buttom;
+    player_x = width/2;
+    player_y = buttom;
     
     // 床の生成
-    singleton.floor1 = new Structure(500, singleton.height - singleton.buttom, 0, singleton.buttom+10, Color.ORANGE);
-    singleton.floor2 = new Structure(500, singleton.height - singleton.buttom, 550, singleton.buttom+10, Color.ORANGE);
+    floor1 = new Structure(500, height - buttom, 0, buttom+10, Color.ORANGE);
+    floor2 = new Structure(500, height - buttom, 550, buttom+10, Color.ORANGE);
     
     // アイテムの生成	
-    singleton.item[0] = new Item(10, 10, 100, singleton.buttom, Color.BLUE);
+    item[0] = new Item(10, 10, 100, buttom, Color.BLUE);
 
     // エネミーの生成	
-    singleton.enemy = new Enemy(30, 10, 200, singleton.buttom, Color.RED);
+    enemy = new Enemy(30, 10, 200, buttom, Color.RED);
+  }  
+  
+  public static Map getInstance(int w, int h) {
+    singleton.initMap(w, h);
     return singleton;
   }
   
@@ -67,55 +72,60 @@ public class Map {
   
   // プレイヤの移動
   public void playerMove(Player p) {
-    try {
-      // プレイヤの移動方向の取得
-      Vector v = p.getMoveDir();
-        
-      // 重力による落下
-      v.vertical += 1; 
-        
-      // 摩擦力による減速
-      if ( v.horizontal > 0 ) {
-        v.horizontal -=1;
-      } else if ( v.horizontal < 0 ) {
-        v.horizontal += 1;
+    characterMove(p);
+    
+    // 死亡判定
+    if ( p.getTop() > height ) {
+      p.dead();
+      return;
+    }
+    
+    // エネミー衝突判定
+    if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
+      if ( p.enemyStamp(enemy) ) {
+        enemy.dead();
+      } else {
+        p.dead();
       }
-      
-      // 自然の要素(重力、摩擦力)による移動方向の修正
-      p.setMoveDir(v);
-      p.setX(p.getX() + v.horizontal);
-      p.setY(p.getY() + v.vertical);
-      // 着地判定
-      if ( p.collidWithStructure(floor1) || p.collidWithStructure(floor2) ) {
-        p.setY(buttom);
-          v.vertical = 0;
-          p.landing();
-      }
+    }
 
-      // エネミー衝突判定
-      if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
-        if ( p.enemyStamp(enemy) ) {
-          enemy.Dead();
-        } else {
-          p.Dead();
-        }
-      }
-
-      // アイテム衝突判定
-      if ( p.colidWithItem(item[0]) ) {
-        item[0].toInvisible();
-      }
-    } catch( MaterialsException e ) {
+    // アイテム衝突判定
+    if ( p.colidWithItem(item[0]) ) {
+      item[0].toInvisible();
     }
   }
   
   public void enemyMove() {
-    try {
-      Vector v = enemy.getMoveDir();
-
-      enemy.setX(enemy.getX()+v.horizontal);
-      enemy.setY(enemy.getY()+v.vertical);
-    } catch( MaterialsException e ) {
+    Vector v = enemy.getMoveDir();
+    v.horizontal = -2;
+    enemy.setMoveDir(v);
+    characterMove(enemy);
+  }
+  
+  // キャラクタの移動 (プレイヤ、エネミー共通)
+  public void characterMove(AbstractCharacter c) {
+    // プレイヤの移動方向の取得
+    Vector v = c.getMoveDir();
+      
+    // 重力による落下
+    v.vertical += 1; 
+      
+    // 摩擦力による減速
+    if ( v.horizontal > 0 ) {
+      v.horizontal -=1;
+    } else if ( v.horizontal < 0 ) {
+      v.horizontal += 1;
+    }
+    
+    // 自然の要素(重力、摩擦力)による移動方向の修正
+    c.setMoveDir(v);
+    c.setX(c.getX() + v.horizontal);
+    c.setY(c.getY() + v.vertical);
+    // 着地判定
+    if ( c.collidWithStructure(floor1) || c.collidWithStructure(floor2) ) {
+      c.setY(buttom);
+      v.vertical = 0;
+      c.landing();
     }
   }
   
@@ -141,7 +151,6 @@ public class Map {
       enemy.draw(g, getRelativePosition(enemy.getLeft(), p));
     }
   }
-  
   public boolean isInScreen(AbstractMaterial m, Player p) {
     int left, right;
    
@@ -152,5 +161,23 @@ public class Map {
     if ( right < 0 ) { return false; }
     
     return true;
+  }
+  
+  public void retry(Player p) {
+    if ( p.getLeft() <= check_point ) {
+      p.setX(player_x);
+      p.setY(player_y);
+    } else {
+      p.setX(check_point);
+      p.setY(player_y);
+    }
+    p.reborn();
+  }
+  
+  public void reset(Player p) {
+    initMap(width, height);
+    p.setX(player_x);
+    p.setY(player_y);
+    p.reborn();
   }
 }

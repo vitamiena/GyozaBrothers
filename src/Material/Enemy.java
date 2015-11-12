@@ -11,7 +11,7 @@ public class Enemy extends AbstractCharacter {
   public Enemy ( int w, int h, int x, int y, Color c ) {
     super( w, h, x, y );
     Vector v = getMoveDir();
-    v.horizontal = -1;
+    v.horizontal = -2;
     color = c;
     setMoveDir(v);
   }
@@ -26,4 +26,6 @@ public class Enemy extends AbstractCharacter {
     g.setColor(color);
     g.fillRect(tx, getY(), getWidth(), getHeight());
   }
+  
+  public void landing() {}
 }

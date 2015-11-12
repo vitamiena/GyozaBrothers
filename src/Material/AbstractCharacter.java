@@ -4,7 +4,7 @@ import java.awt.*;
 import Env.*;
 
 // 生物クラス
-abstract class AbstractCharacter extends AbstractMaterial {
+abstract public class AbstractCharacter extends AbstractMaterial {
   private boolean isAlive; // 生存フラグ
   private Vector moveDir;  // 移動方向
 
@@ -16,8 +16,13 @@ abstract class AbstractCharacter extends AbstractMaterial {
   }
 
   // 死亡
-  public void Dead() {
+  public void dead() {
     isAlive = false;
+  }
+  
+  // 復活
+  public void reborn() {
+    isAlive = true;
   }
 
   // 生きているかどうか
@@ -48,16 +53,14 @@ abstract class AbstractCharacter extends AbstractMaterial {
        }
        */
   }
+  
+  abstract public void landing();
 
   // Structureクラスとの衝突
   public boolean collidWithStructure(Structure s) {
-    Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
-    Rectangle strRec = new Rectangle(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+    Rectangle playerRec = getRectangle();
+    Rectangle strRec = s.getRectangle();
 
-    if ( playerRec.intersects(strRec) ) {
-      return true;
-    }
-
-    return false;
+    return playerRec.intersects(strRec);
   }
 }

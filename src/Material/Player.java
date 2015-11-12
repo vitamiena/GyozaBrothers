@@ -9,45 +9,45 @@ import Env.*;
 public class Player extends AbstractCharacter {
   private KeyController keyController = KeyController.getInstance();
     
-    // コンストラクタ
-    public Player(int w, int h, int x, int y) {
-      super(w, h, x, y);
-    }
-  
-    // 描画
-    public void draw(Graphics g) {
-      g.drawRect(getX(), getY(), getWidth(), getHeight());
-    }
-  
-    public void draw(Graphics g, int tx) {
-      g.drawRect(tx, getY(), getWidth(), getHeight());
-    }
-  
-    public void move() {
-      // プレイヤの移動(キー入力)
-      Vector v = getMoveDir();
-        
-      // ジャンプキーが押されたとき
-      if ( keyController.getUp() == KeyController.Key.Press ) {
-        v.vertical -= 10;
-          keyController.setUpKeep();
-      } 
-
-      // 左右キーが押されたとき
-      if ( keyController.getLeft() == KeyController.Key.Press ) {
-        keyController.setLeftKeep();
-      } else if ( keyController.getRight() == KeyController.Key.Press ) {
-        keyController.setRightKeep();
-      }     
+  // コンストラクタ
+  public Player(int w, int h, int x, int y) {
+    super(w, h, x, y);
+  }
+ 
+  // 描画
+  public void draw(Graphics g) {
+    g.drawRect(getX(), getY(), getWidth(), getHeight());
+  }
+ 
+  public void draw(Graphics g, int tx) {
+    g.drawRect(tx, getY(), getWidth(), getHeight());
+  }
+ 
+  public void move() {
+    // プレイヤの移動(キー入力)
+    Vector v = getMoveDir();
       
-      // 左右への移動方向の設定
-      if ( keyController.getLeft() == KeyController.Key.Keep ) {
-        v.horizontal = -5;
-      } else if ( keyController.getRight() == KeyController.Key.Keep ) {
-        v.horizontal = 5;
-      } else {
-        v.horizontal = 0;
-      }
+    // ジャンプキーが押されたとき
+    if ( keyController.getUp() == KeyController.Key.Press ) {
+      v.vertical -= 10;
+      keyController.setUpKeep();
+    } 
+
+    // 左右キーが押されたとき
+    if ( keyController.getLeft() == KeyController.Key.Press ) {
+      keyController.setLeftKeep();
+    } else if ( keyController.getRight() == KeyController.Key.Press ) {
+      keyController.setRightKeep();
+    }     
+    
+    // 左右への移動方向の設定
+    if ( keyController.getLeft() == KeyController.Key.Keep ) {
+      v.horizontal = -5;
+    } else if ( keyController.getRight() == KeyController.Key.Keep ) {
+      v.horizontal = 5;
+    } else {
+      v.horizontal = 0;
+    }
     setMoveDir(v);
   }
   
@@ -68,13 +68,10 @@ public class Player extends AbstractCharacter {
   
   // Enemyクラスとの衝突
   public boolean collidWithEnemy(Enemy enemy) {
-    Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
-    Rectangle enemyRec = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
+    Rectangle playerRec = getRectangle();
+    Rectangle enemyRec = enemy.getRectangle();
         
-    if ( playerRec.intersects(enemyRec) ) {
-      return true;
-    }
-    return false;
+    return playerRec.intersects(enemyRec);
   }
   
   public boolean enemyStamp(Enemy enemy) {
@@ -92,13 +89,9 @@ public class Player extends AbstractCharacter {
 
   //**追加** Itemクラスとの衝突
   public boolean colidWithItem(Item i) {
-    Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
-    Rectangle itemRec = new Rectangle(i.getX(), i.getY(), i.getWidth(), i.getHeight());
+    Rectangle playerRec = getRectangle();
+    Rectangle itemRec = i.getRectangle();
       
-    if ( playerRec.intersects(itemRec) ) {
-      return true;
-    }
-    
-    return false;
+    return playerRec.intersects(itemRec);
   }
 }
