@@ -58,13 +58,9 @@ abstract public class AbstractCharacter extends AbstractMaterial {
 
   // StructureƒNƒ‰ƒX‚Æ‚ÌÕ“Ë
   public boolean collidWithStructure(Structure s) {
-    Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
-    Rectangle strRec = new Rectangle(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+    Rectangle playerRec = getRectangle();
+    Rectangle strRec = s.getRectangle();
 
-    if ( playerRec.intersects(strRec) ) {
-      return true;
-    }
-
-    return false;
+    return playerRec.intersects(strRec);
   }
 }

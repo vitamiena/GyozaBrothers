@@ -68,13 +68,10 @@ public class Player extends AbstractCharacter {
   
   // Enemyクラスとの衝突
   public boolean collidWithEnemy(Enemy enemy) {
-    Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
-    Rectangle enemyRec = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
+    Rectangle playerRec = getRectangle();
+    Rectangle enemyRec = enemy.getRectangle();
         
-    if ( playerRec.intersects(enemyRec) ) {
-      return true;
-    }
-    return false;
+    return playerRec.intersects(enemyRec);
   }
   
   public boolean enemyStamp(Enemy enemy) {
@@ -92,13 +89,9 @@ public class Player extends AbstractCharacter {
 
   //**追加** Itemクラスとの衝突
   public boolean colidWithItem(Item i) {
-    Rectangle playerRec = new Rectangle(getX(), getY(), getWidth(), getHeight());
-    Rectangle itemRec = new Rectangle(i.getX(), i.getY(), i.getWidth(), i.getHeight());
+    Rectangle playerRec = getRectangle();
+    Rectangle itemRec = i.getRectangle();
       
-    if ( playerRec.intersects(itemRec) ) {
-      return true;
-    }
-    
-    return false;
+    return playerRec.intersects(itemRec);
   }
 }
