@@ -38,8 +38,25 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     offg = img.getGraphics(); // オフスクリーン
     
     structures = new ArrayList<Structure>();
-    structures.add(new Structure(500, 100, 0, height-50, Color.ORANGE));
-    structures.add(new Structure(500, 100, 550, height-50, Color.ORANGE));
+    structures.add(new Structure(200, 100, 0, height-50, Color.ORANGE));
+    structures.add(new Structure(300, 100, 250, height-50, Color.ORANGE));
+    structures.add(new Structure(300, 100, 600, height-50, Color.ORANGE));
+    structures.add(new Structure(500, 10, 700, height-90, Color.ORANGE));
+    structures.add(new Structure(100, 10, 1250, height-90, Color.ORANGE));
+    structures.add(new Structure(100, 10, 1380, height-120, Color.ORANGE));
+    structures.add(new Structure(100, 10, 1600, height-30, Color.ORANGE));
+    structures.add(new Structure(300, 50, 1750, height-30, Color.ORANGE));
+    structures.add(new Structure(30,  80, 2050, height-60, Color.ORANGE));
+    structures.add(new Structure(30, 110, 2080, height-90, Color.ORANGE));
+    structures.add(new Structure(30, 140, 2110, height-120, Color.ORANGE));
+    structures.add(new Structure(30, 170, 2140, height-150, Color.ORANGE));
+    structures.add(new Structure(180, 200, 2170, height-180, Color.ORANGE));
+    structures.add(new Structure(30, 190, 2350, height-170, Color.ORANGE));
+    structures.add(new Structure(300, 200, 2380, height-180, Color.ORANGE));
+    structures.add(new Structure(20, 190, 2680, height-170, Color.ORANGE));
+    structures.add(new Structure(50, 200, 2700, height-180, Color.ORANGE));
+    structures.add(new Structure(100, 100, 2750, height-50, Color.ORANGE));
+    structures.add(new Structure(400, 100, 2350, -50, Color.ORANGE));
     
     items = new ArrayList<Item>();
     items.add(new Item(10, 10, 100, height-100, Color.BLUE));
