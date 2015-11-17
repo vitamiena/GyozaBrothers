@@ -2,6 +2,7 @@ package Material;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 import static java.awt.event.KeyEvent.*;
 import java.awt.*;
 import Env.*;
@@ -20,7 +21,8 @@ public class Player extends AbstractCharacter {
   }
  
   public void draw(Graphics g, int tx) {
-    g.drawRect(tx, getY(), getWidth(), getHeight());
+    g.setColor(Color.GREEN);
+    g.fillRect(tx, getY(), getWidth(), getHeight());
   }
  
   public void move() {
