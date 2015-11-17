@@ -33,10 +33,10 @@ public class Map {
   public void initMap(int w, int h) {
     width = w;
     height = h;
-    buttom = height - 50;
+    
     // プレイヤの初期位置
-    player_x = width/2;
-    player_y = buttom;
+    player_x = 100;
+    player_y = 0;
     
   }  
   
@@ -128,7 +128,9 @@ public class Map {
     Vector v = c.getMoveDir();
       
     // 重力による落下
-    v.vertical += 1; 
+    if ( v.vertical < 5 ) {
+      v.vertical += 1; 
+    }
       
     // 摩擦力による減速
     if ( v.horizontal > 0 ) {
