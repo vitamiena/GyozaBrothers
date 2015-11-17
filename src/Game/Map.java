@@ -38,15 +38,6 @@ public class Map {
     player_x = width/2;
     player_y = buttom;
     
-    // 床の生成
-    //floor1 = new Structure(500, height - buttom, 0, buttom+10, Color.ORANGE);
-    //floor2 = new Structure(500, height - buttom, 550, buttom+10, Color.ORANGE);
-    
-    // アイテムの生成	
-      //item[0] = new Item(10, 10, 100, buttom, Color.BLUE);
-
-    // エネミーの生成	
-    //enemy = new Enemy(30, 10, 200, buttom, Color.RED);
   }  
   
   public static Map getInstance(int w, int h, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e) {
@@ -206,8 +197,11 @@ public class Map {
     p.reborn();
   }
   
-  public void reset(Player p) {
+  public void reset(Player p, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e) {
     initMap(width, height);
+    structures = new ArrayList<Structure>(s); 
+    items = new ArrayList<Item>(i); 
+    enemies = new ArrayList<Enemy>(e);
     p.setX(player_x);
     p.setY(player_y);
     p.reborn();

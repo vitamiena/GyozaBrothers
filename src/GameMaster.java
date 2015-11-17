@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JApplet;
@@ -20,7 +21,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   private Image img;
   private Graphics offg; //画面のバッファ
   private int width, height;
+  private boolean isPlaying;
   //private KeyController keyController = KeyController.getInstance();
+  ArrayList<Structure> structures;
+  ArrayList<Item> items;
+  ArrayList<Enemy> enemies;
   
   @Override
   public void init() {  
@@ -32,20 +37,21 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     img = createImage(width, height+100);
     offg = img.getGraphics(); // オフスクリーン
     
-    ArrayList<Structure> structures = new ArrayList<Structure>();
+    structures = new ArrayList<Structure>();
     structures.add(new Structure(500, 100, 0, height-50, Color.ORANGE));
     structures.add(new Structure(500, 100, 550, height-50, Color.ORANGE));
     
-    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    enemies.add(new Enemy(30, 10, 200, height-100, Color.RED));
-    enemies.add(new Enemy(30, 10, 700, height-100, Color.RED));    
-    
-    ArrayList<Item> items = new ArrayList<Item>();
+    items = new ArrayList<Item>();
     items.add(new Item(10, 10, 100, height-100, Color.BLUE));
     items.add(new Item(10, 10, 400, height-100, Color.BLUE));
     
+    enemies = new ArrayList<Enemy>();
+    enemies.add(new Enemy(30, 10, 200, height-100, Color.RED));
+    enemies.add(new Enemy(30, 10, 700, height-100, Color.RED));    
+        
     map = Map.getInstance(width, height, structures, items, enemies);
     player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
+    isPlaying = true;
   }
   
   public void uopdate(Graphics g) {
@@ -58,7 +64,24 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   }
   
   public void keyPressed(KeyEvent e) {
-    player.keyPressed(e);
+    if ( isPlaying ) {
+      player.keyPressed(e);
+    } else {
+      char key = e.getKeyChar();
+      switch (key) {
+        case 'r': ;
+        case 'R':
+          map.reset(player, structures, items, enemies);
+          isPlaying = true;
+          break;
+        case 'c': 
+        case 'C': 
+          map.retry(player);
+          isPlaying = true;
+          break;
+        default: ; break;     
+      }
+    }    
     repaint();
   }
   
@@ -85,7 +108,19 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         } catch (InterruptedException e) {      
         }
       }
-      stop();
+      isPlaying = false;
+      offg.setFont(new Font("Arial", Font.BOLD, 40));
+      offg.drawString("GameOver", 300, 100);
+      offg.setFont(new Font("Arial", Font.PLAIN, 20));
+      offg.drawString("Continue : C", 300, 150);
+      //offg.drawString("Restart  : R", 300, 200);
+      repaint();
+      while ( ! isPlaying ) {
+        try {        
+          Thread.sleep(10);
+        } catch ( InterruptedException e ) {
+        }
+      }
     }
   }
   
