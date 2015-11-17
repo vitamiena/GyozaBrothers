@@ -1,10 +1,12 @@
 import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Color;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JApplet;
 import javax.swing.JLabel;
+import java.util.ArrayList;
 import Env.*;
 import Material.*;
 import Game.*;
@@ -30,7 +32,19 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     img = createImage(width, height+100);
     offg = img.getGraphics(); // オフスクリーン
     
-    map = Map.getInstance(width, height);
+    ArrayList<Structure> structures = new ArrayList<Structure>();
+    structures.add(new Structure(500, 100, 0, height-50, Color.ORANGE));
+    structures.add(new Structure(500, 100, 550, height-50, Color.ORANGE));
+    
+    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    enemies.add(new Enemy(30, 10, 200, height-100, Color.RED));
+    enemies.add(new Enemy(30, 10, 700, height-100, Color.RED));    
+    
+    ArrayList<Item> items = new ArrayList<Item>();
+    items.add(new Item(10, 10, 100, height-100, Color.BLUE));
+    items.add(new Item(10, 10, 400, height-100, Color.BLUE));
+    
+    map = Map.getInstance(width, height, structures, items, enemies);
     player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
   }
   
@@ -62,7 +76,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
       while ( player.isAlive() ) {  
         offg.clearRect(0, 0, width, height);
         player.move(); // プレイヤの移動方向の設定
-        map.enemyMove();
+        map.enemyMove(player);
         map.playerMove(player); // プレイヤの画面上の移動
         map.draw(offg, player); // 要素の描画
         repaint();  
