@@ -3,6 +3,7 @@ package Game;
 import java.awt.Graphics;
 import java.applet.Applet;
 import java.awt.Color;
+import java.util.ArrayList;
 import Env.*;
 import Material.*;
 
@@ -16,11 +17,11 @@ public class Map {
   private int player_y;
   protected int buttom;
   private int check_point = 600;
-    
-  Structure floor1; 
-  Structure floor2;
-  private Item item[] = new Item[2];
-  private Enemy enemy;
+      
+  private ArrayList<Structure> structures;
+  private ArrayList<Item> items;
+  private ArrayList<Enemy> enemies;
+  
     
   private Map() {
   }
@@ -38,36 +39,56 @@ public class Map {
     player_y = buttom;
     
     // 床の生成
-    floor1 = new Structure(500, height - buttom, 0, buttom+10, Color.ORANGE);
-    floor2 = new Structure(500, height - buttom, 550, buttom+10, Color.ORANGE);
+    //floor1 = new Structure(500, height - buttom, 0, buttom+10, Color.ORANGE);
+    //floor2 = new Structure(500, height - buttom, 550, buttom+10, Color.ORANGE);
     
     // アイテムの生成	
-    item[0] = new Item(10, 10, 100, buttom, Color.BLUE);
+      //item[0] = new Item(10, 10, 100, buttom, Color.BLUE);
 
     // エネミーの生成	
-    enemy = new Enemy(30, 10, 200, buttom, Color.RED);
+    //enemy = new Enemy(30, 10, 200, buttom, Color.RED);
   }  
   
-  public static Map getInstance(int w, int h) {
+  public static Map getInstance(int w, int h, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e) {
     singleton.initMap(w, h);
+    singleton.structures = new ArrayList<Structure>(s); 
+    singleton.items = new ArrayList<Item>(i); 
+    singleton.enemies = new ArrayList<Enemy>(e);
     return singleton;
   }
   
   // 各要素の描画
   public void draw(Graphics g, Player p) {
-    p.draw(g, player_x);
     //g.fillRect(0, buttom+p.height+1, 600, 100);
-    drawStructure(g, floor1, p);
-    drawStructure(g, floor2, p);
+    //drawStructure(g, floor1, p);
+    //drawStructure(g, floor2, p);
       
+    for ( Structure s : structures ) {
+      drawStructure(g, s, p);
+    }
+
+      /*
     if ( item[0].isVisible() ) {
       drawItem(g, item[0], p);  //追加
     }
     if (enemy.isAlive()) {
       drawEnemy(g, enemy, p);
+    }*/
+    
+    for ( Item i : items ) {
+      if ( i.isVisible() ) { 
+        drawItem(g, i, p);
+      }
+    }
+    
+    for ( Enemy e : enemies ) {
+      if ( e.isAlive() ) {
+        drawEnemy(g, e, p);
+      }
     }
     //floor1.draw(g, getRelativePosition(floor1.getX(), p));
     //floor2.draw(g, getRelativePosition(floor2.getX(), p));
+    p.draw(g, player_x);
   }
   
   // プレイヤの移動
@@ -81,25 +102,33 @@ public class Map {
     }
     
     // エネミー衝突判定
-    if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
-      if ( p.enemyStamp(enemy) ) {
-        enemy.dead();
-      } else {
-        p.dead();
+    for ( Enemy enemy : enemies ) {
+      if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
+        if ( p.enemyStamp(enemy) ) {
+          enemy.dead();
+        } else {
+          p.dead();
+        } 
       }
     }
 
     // アイテム衝突判定
-    if ( p.colidWithItem(item[0]) ) {
-      item[0].toInvisible();
+    for ( Item item : items ) {
+      if ( p.colidWithItem(item) ) {
+        item.toInvisible();
+      }
     }
   }
   
-  public void enemyMove() {
-    Vector v = enemy.getMoveDir();
-    v.horizontal = -2;
-    enemy.setMoveDir(v);
-    characterMove(enemy);
+  public void enemyMove(Player p) {
+    for ( Enemy enemy : enemies ) {
+      if ( isInScreen(enemy, p) ) {
+        Vector v = enemy.getMoveDir();
+        v.horizontal = -2;
+        enemy.setMoveDir(v);
+        characterMove(enemy);
+      }
+    }
   }
   
   // キャラクタの移動 (プレイヤ、エネミー共通)
@@ -122,10 +151,12 @@ public class Map {
     c.setX(c.getX() + v.horizontal);
     c.setY(c.getY() + v.vertical);
     // 着地判定
-    if ( c.collidWithStructure(floor1) || c.collidWithStructure(floor2) ) {
-      c.setY(buttom);
-      v.vertical = 0;
-      c.landing();
+    for ( Structure structure : structures ) {
+      if ( c.collidWithStructure(structure) ) {
+        c.setY(structure.getTop() - c.getHeight());
+        v.vertical = 0;
+        c.landing();
+      }
     }
   }
   
@@ -150,7 +181,8 @@ public class Map {
     if ( isInScreen(enemy,p) ) {
       enemy.draw(g, getRelativePosition(enemy.getLeft(), p));
     }
-  }
+  }
+
   public boolean isInScreen(AbstractMaterial m, Player p) {
     int left, right;
    
