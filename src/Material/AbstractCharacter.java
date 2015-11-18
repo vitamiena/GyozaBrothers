@@ -6,6 +6,7 @@ import Env.*;
 // 生物クラス
 abstract public class AbstractCharacter extends AbstractMaterial {
   private boolean isAlive; // 生存フラグ
+  private boolean isJumping; // ジャンプしているかどうか
   private Vector moveDir;  // 移動方向
 
   // インスタンスの生成 = 生命の誕生
@@ -13,6 +14,7 @@ abstract public class AbstractCharacter extends AbstractMaterial {
     super(w, h, x, y);
     isAlive = true;
     moveDir = new Vector(0,0);
+    isJumping = false;
   }
 
   // 死亡
@@ -27,7 +29,11 @@ abstract public class AbstractCharacter extends AbstractMaterial {
 
   // 生きているかどうか
   public boolean isAlive() {
-    return isAlive;
+    return isAlive;    
+  }
+  
+  public boolean isJumping() {
+    return isJumping;
   }
 
   // ゲッター・セッター
@@ -54,7 +60,13 @@ abstract public class AbstractCharacter extends AbstractMaterial {
        */
   }
   
-  abstract public void landing();
+  public void jump() {
+    isJumping = true;    
+  }
+  
+  public void landing() {
+    isJumping = false;  
+  };
 
   // Structureクラスとの衝突
   public boolean collidWithStructure(Structure s) {

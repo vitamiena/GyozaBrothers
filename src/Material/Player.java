@@ -31,8 +31,7 @@ public class Player extends AbstractCharacter {
       
     // ジャンプキーが押されたとき
     if ( keyController.getUp() == KeyController.Key.Press ) {
-      v.vertical -= 10;
-      keyController.setUpKeep();
+      keyController.setUpKeep();      
     } 
 
     // 左右キーが押されたとき
@@ -50,12 +49,13 @@ public class Player extends AbstractCharacter {
     } else {
       v.horizontal = 0;
     }
+    
+    if ( ( ! isJumping() ) && keyController.getUp() == KeyController.Key.Keep ) {
+      v.vertical -= 10;
+      jump();
+    }
+    
     setMoveDir(v);
-  }
-  
-  // 着地 (ジャンプキーの有効化)
-  public void landing() {
-    keyController.setUpRelease();
   }
   
   // キーが押された

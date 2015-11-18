@@ -26,6 +26,4 @@ public class Enemy extends AbstractCharacter {
     g.setColor(color);
     g.fillRect(tx, getY(), getWidth(), getHeight());
   }
-  
-  public void landing() {}
 }
