@@ -98,7 +98,11 @@ public class Map {
         if ( p.enemyStamp(enemy) ) {
           enemy.dead();
         } else {
-          p.dead();
+          if ( p.isImmortal() ) {
+            p.toDeadable();
+          } else {
+            p.dead();
+          }
         } 
       }
     }
@@ -106,7 +110,7 @@ public class Map {
     // ƒAƒCƒeƒ€Õ“Ë”»’è
     for ( Item item : items ) {
       if ( p.colidWithItem(item) ) {
-        item.toInvisible();
+        p.getItem(item);
       }
     }
   }
