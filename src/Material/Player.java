@@ -17,7 +17,14 @@ public class Player extends AbstractCharacter {
     jumpHeight = 10;
     isImmortal = false;
   }
- 
+
+  @Override
+  public void reborn() {
+    super.reborn();
+    jumpHeight = 10;
+    isImmortal = false;
+  }
+
   // •`‰æ
   public void draw(Graphics g) {
     g.drawRect(getX(), getY(), getWidth(), getHeight());

@@ -109,7 +109,7 @@ public class Map {
 
     // ƒAƒCƒeƒ€Õ“Ë”»’è
     for ( Item item : items ) {
-      if ( p.colidWithItem(item) ) {
+      if ( item.isVisible() && p.colidWithItem(item) ) {
         p.getItem(item);
       }
     }
@@ -203,6 +203,7 @@ public class Map {
     p.reborn();
   }
   
+  // reset‚Æ“¯‚¶“®ì
   public void reset(Player p, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e) {
     initMap(width, height);
     structures = new ArrayList<Structure>(s); 
