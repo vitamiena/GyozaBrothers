@@ -40,10 +40,11 @@ public class KeyController {
     }
   }
 
-  // キーが離されたとき (ジャンプは、着地した時にキーが離された判定とする)
+  // キーが離されたとき
   public void released(KeyEvent e) {
     int key = e.getKeyCode();
     switch (key) {
+      case VK_SPACE: up = Key.Release; break;
       case VK_LEFT: left = Key.Release; break;
       case VK_RIGHT: right = Key.Release; break;
       default: ; break;     
