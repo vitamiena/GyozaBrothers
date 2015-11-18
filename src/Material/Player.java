@@ -9,12 +9,22 @@ import Env.*;
 
 public class Player extends AbstractCharacter {
   private KeyController keyController = KeyController.getInstance();
-    
+  private int jumpHeight;
+  private boolean isImmortal;
   // コンストラクタ
   public Player(int w, int h, int x, int y) {
     super(w, h, x, y);
+    jumpHeight = 10;
+    isImmortal = false;
   }
- 
+
+  @Override
+  public void reborn() {
+    super.reborn();
+    jumpHeight = 10;
+    isImmortal = false;
+  }
+
   // 描画
   public void draw(Graphics g) {
     g.drawRect(getX(), getY(), getWidth(), getHeight());
@@ -28,7 +38,7 @@ public class Player extends AbstractCharacter {
   public void move() {
     // プレイヤの移動(キー入力)
     Vector v = getMoveDir();
-      
+    
     // ジャンプキーが押されたとき
     if ( keyController.getUp() == KeyController.Key.Press ) {
       keyController.setUpKeep();      
@@ -51,7 +61,7 @@ public class Player extends AbstractCharacter {
     }
     
     if ( ( ! isJumping() ) && keyController.getUp() == KeyController.Key.Keep ) {
-      v.vertical -= 10;
+      v.vertical -= jumpHeight;
       jump();
     }
     
@@ -89,11 +99,25 @@ public class Player extends AbstractCharacter {
     return false;
   }
 
-  //**追加** Itemクラスとの衝突
+  // Itemクラスとの衝突
   public boolean colidWithItem(Item i) {
     Rectangle playerRec = getRectangle();
     Rectangle itemRec = i.getRectangle();
-      
+
     return playerRec.intersects(itemRec);
+  }
+
+  public void getItem(Item i) {
+    // TODO : item種類に応じた挙動
+    jumpHeight = 20;
+    i.toInvisible();
+  }
+
+  public boolean isImmortal() {
+    return isImmortal;
+  }
+
+  public void toDeadable() {
+    isImmortal = false;
   }
 }

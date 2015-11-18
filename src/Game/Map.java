@@ -98,15 +98,19 @@ public class Map {
         if ( p.enemyStamp(enemy) ) {
           enemy.dead();
         } else {
-          p.dead();
+          if ( p.isImmortal() ) {
+            p.toDeadable();
+          } else {
+            p.dead();
+          }
         } 
       }
     }
 
     // ƒAƒCƒeƒ€Õ“Ë”»’è
     for ( Item item : items ) {
-      if ( p.colidWithItem(item) ) {
-        item.toInvisible();
+      if ( item.isVisible() && p.colidWithItem(item) ) {
+        p.getItem(item);
       }
     }
   }
@@ -199,6 +203,7 @@ public class Map {
     p.reborn();
   }
   
+  // reset‚Æ“¯‚¶“®ì
   public void reset(Player p, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e) {
     initMap(width, height);
     structures = new ArrayList<Structure>(s); 
