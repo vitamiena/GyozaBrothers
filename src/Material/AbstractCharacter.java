@@ -59,6 +59,14 @@ abstract public class AbstractCharacter extends AbstractMaterial {
        }
        */
   }
+  
+  // ’¼‘O‚ÌÀ•W‚Ìæ“¾
+  public int previousPointX() {
+    return getX()-moveDir.horizontal;
+  }
+  public int previousPointY() {
+    return getY()-moveDir.vertical;
+  }
 
   public void jump() {
     isJumping = true;    

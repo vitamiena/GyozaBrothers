@@ -85,6 +85,14 @@ public class Player extends AbstractCharacter {
         
     return playerRec.intersects(materialRec);
   }
+
+  // ’¼‘O‚Ì•ûŒü‚Ì”»’f
+  public boolean onCharacter(AbstractCharacter character) {
+    if ( previousPointY() - character.previousPointY() < 0 ) { 
+      return true;
+    }
+    return false;
+  }
   
   public boolean enemyStamp(Enemy enemy) {
     int relativeY = enemy.getY()-getY();
