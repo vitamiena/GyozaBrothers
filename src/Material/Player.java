@@ -88,21 +88,29 @@ public class Player extends AbstractCharacter {
 
   // ’¼‘O‚Ì•ûŒü‚Ì”»’f
   public boolean onCharacter(AbstractCharacter character) {
-    if ( previousPointY() - character.previousPointY() < 0 ) { 
+    if ( character.previousPointY() - previousPointY() > 0 ) { 
+      return true;
+    }
+    return false;
+  }
+
+  public boolean underCharacter(AbstractCharacter character) {
+    if ( character.previousPointY() - previousPointY() < 0 ) { 
+      return true;
+    }
+    return false;
+  }
+
+  public boolean leftCharacter(AbstractCharacter character) {
+    if ( character.previousPointX() - previousPointX() > 0 ) { 
       return true;
     }
     return false;
   }
   
-  public boolean enemyStamp(Enemy enemy) {
-    int relativeY = enemy.getY()-getY();
-    int relativeRightX = Math.abs(getRight()-enemy.getRight());
-    int relativeLeftX = Math.abs(getLeft()-enemy.getLeft());
-       
-    if ( relativeY < getHeight() ) {
-      if ( relativeRightX < getWidth() || relativeLeftX < getWidth() ) {
-        return true;
-      }
+  public boolean rightCharacter(AbstractCharacter character) {
+    if ( character.previousPointX() - previousPointX() < 0 ) { 
+      return true;
     }
     return false;
   }
