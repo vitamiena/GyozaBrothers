@@ -59,7 +59,7 @@ abstract public class AbstractCharacter extends AbstractMaterial {
        }
        */
   }
-  
+
   public void jump() {
     isJumping = true;    
   }

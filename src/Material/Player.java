@@ -78,33 +78,25 @@ public class Player extends AbstractCharacter {
     keyController.released(e);
   }
   
-  // Enemyクラスとの衝突
-  public boolean collidWithEnemy(Enemy enemy) {
+  // AbstractMaterialクラスとの衝突
+  public boolean collidWithMaterial(AbstractMaterial material) {
     Rectangle playerRec = getRectangle();
-    Rectangle enemyRec = enemy.getRectangle();
+    Rectangle materialRec = material.getRectangle();
         
-    return playerRec.intersects(enemyRec);
+    return playerRec.intersects(materialRec);
   }
   
   public boolean enemyStamp(Enemy enemy) {
-    int relativeY = Math.abs(enemy.getY()-getY()-enemy.getHeight());
+    int relativeY = enemy.getY()-getY();
     int relativeRightX = Math.abs(getRight()-enemy.getRight());
     int relativeLeftX = Math.abs(getLeft()-enemy.getLeft());
        
-    if ( relativeY < 3 ) {
+    if ( relativeY < getHeight() ) {
       if ( relativeRightX < getWidth() || relativeLeftX < getWidth() ) {
         return true;
       }
     }
     return false;
-  }
-
-  // Itemクラスとの衝突
-  public boolean colidWithItem(Item i) {
-    Rectangle playerRec = getRectangle();
-    Rectangle itemRec = i.getRectangle();
-
-    return playerRec.intersects(itemRec);
   }
 
   public void getItem(Item i) {
