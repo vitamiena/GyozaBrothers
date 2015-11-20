@@ -47,4 +47,11 @@ abstract public class AbstractMaterial {
   public int previousPointY() {
     return getY()-moveDir.vertical;
   }
+
+  // ‘¼‚ÌAbstractMaterialƒNƒ‰ƒX‚Æ‚ÌÕ“Ë
+  public boolean collidWithMaterial(AbstractMaterial material) {
+    Rectangle playerRec = getRectangle();
+    Rectangle materialRec = material.getRectangle();
+    return playerRec.intersects(materialRec);
+  }
 }

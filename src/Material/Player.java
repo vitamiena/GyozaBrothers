@@ -78,15 +78,7 @@ public class Player extends AbstractCharacter {
     keyController.released(e);
   }
   
-  // AbstractMaterialƒNƒ‰ƒX‚Æ‚ÌÕ“Ë
-  public boolean collidWithMaterial(AbstractMaterial material) {
-    Rectangle playerRec = getRectangle();
-    Rectangle materialRec = material.getRectangle();
-        
-    return playerRec.intersects(materialRec);
-  }
-
-  // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
+   // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
   public boolean onMaterial(AbstractMaterial material) {
     if ( material.getY() - previousPointY() > 0 ) { 
       return true;
