@@ -21,7 +21,6 @@ public class Map {
   private ArrayList<Structure> structures;
   private ArrayList<Item> items;
   private ArrayList<Enemy> enemies;
-  
     
   private Map() {
   }
@@ -88,6 +87,7 @@ public class Map {
     
     // Ž€–S”»’è
     if ( p.getTop() > height ) {
+      p.setjumpHeight(10);
       p.dead();
       return;
     }
@@ -96,6 +96,7 @@ public class Map {
     for ( Enemy enemy : enemies ) {
       if ( p.collidWithMaterial(enemy) && enemy.isAlive() ) {
         if ( p.onMaterial(enemy) ) {
+          p.jump();
           enemy.dead();
         } else {
           if ( p.isImmortal() ) {

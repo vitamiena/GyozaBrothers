@@ -9,19 +9,16 @@ import Env.*;
 
 public class Player extends AbstractCharacter {
   private KeyController keyController = KeyController.getInstance();
-  private int jumpHeight;
   private boolean isImmortal;
   // コンストラクタ
   public Player(int w, int h, int x, int y, Color c) {
     super(w, h, x, y, c);
-    jumpHeight = 10;
     isImmortal = false;
   }
 
   @Override
   public void reborn() {
     super.reborn();
-    jumpHeight = 10;
     isImmortal = false;
   }
 
@@ -56,7 +53,6 @@ public class Player extends AbstractCharacter {
     }
     
     if ( ( ! isJumping() ) && keyController.getUp() == KeyController.Key.Keep ) {
-      v.vertical -= jumpHeight;
       jump();
     }
     
@@ -92,7 +88,7 @@ public class Player extends AbstractCharacter {
  
   public void getItem(Item i) {
     // TODO : item種類に応じた挙動
-    jumpHeight = 20;
+    setjumpHeight(20);
     i.toInvisible();
   }
 
