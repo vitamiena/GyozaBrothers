@@ -11,16 +11,23 @@ abstract public class AbstractMaterial {
   private int x;
   private int y;
   public Vector moveDir;  // ˆÚ“®•ûŒü
+  private Color color;
+
   
-  public AbstractMaterial(int w, int h, int tx, int ty) {
+  public AbstractMaterial(int w, int h, int tx, int ty, Color c) {
     width = w;
     height = h;
     x = tx;
     y = ty;
     moveDir = new Vector(0,0);
+    color = c;
   }
   // •`‰æ
-  abstract public void draw(Graphics g);
+  public void draw(Graphics g, int tx) {
+    g.setColor(color);
+    g.fillRect(tx, getY(), getWidth(), getHeight());
+  }
+ 
     
   public int getX() { return x; }
   public int getY() { return y; }

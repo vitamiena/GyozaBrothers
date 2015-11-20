@@ -4,24 +4,11 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Item extends AbstractMaterial {
-  Color color;
   private boolean isVisible;
 
   public Item(int w, int h, int x, int y, Color c) {
-    super(w, h, x, y);
-    color = c;
+    super(w, h, x, y, c);
     isVisible = true;
-  }
-
-  // •`‰æ
-  public void draw(Graphics g) {
-    g.setColor(color);
-    g.fillRect(getX(), getY(), getWidth(), getHeight()); 
-  }
-
-  public void draw(Graphics g, int tx) {
-    g.setColor(color);
-    g.fillRect(tx, getY(), getWidth(), getHeight());
   }
 
   public boolean isVisible() {

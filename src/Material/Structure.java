@@ -4,22 +4,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Structure extends AbstractMaterial {
-  Color color;
   public Structure(int w, int h, int x, int y, Color c) {
-    super(w, h, x, y);
-    color = c;
-  }
-
-  // •`‰æ
-  public void draw(Graphics g) {
-    // TODO Auto-generated method stub
-    g.setColor(color); // Œš•¨‚ÌF
-    g.fillRect(getX(), getY(), getWidth(), getHeight());
-  }
-
-  public void draw(Graphics g, int tx) {
-    // TODO Auto-generated method stub
-    g.setColor(color); // Œš•¨‚ÌF
-    g.fillRect(tx, getY(), getWidth(), getHeight());
+    super(w, h, x, y, c);
   }
 }

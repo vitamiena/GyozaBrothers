@@ -68,7 +68,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     enemies.add(new Enemy(30, 10, 700, height-100, Color.RED));    
         
     map = Map.getInstance(width, height, structures, items, enemies);
-    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
+    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
     isPlaying = true;
     isStarted = false;
   }
@@ -124,12 +124,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     Thread thisThread = Thread.currentThread();
     while ( thread == thisThread ) {
       while ( ! isStarted ) {
-        offg.clearRect(0, 0, width, height);
-        offg.setFont(new Font("Arial", Font.BOLD, 60));
-        offg.drawString("Gyoza", 150, 100);
-        offg.drawString("Brothers", 200, 170);
-        offg.setFont(new Font("Arial", Font.PLAIN, 20));
-        offg.drawString("Start : SPACE", 180, 250);
+        showTitle();
         repaint();
         try {
           Thread.sleep(10);
@@ -150,11 +145,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         }
       }
       isPlaying = false;
-      offg.setFont(new Font("Arial", Font.BOLD, 40));
-      offg.drawString("GameOver", 300, 100);
-      offg.setFont(new Font("Arial", Font.PLAIN, 20));
-      offg.drawString("Continue : C", 300, 150);
-      offg.drawString("Menu : S", 300, 200);
+      showGameOverMessage();
       //offg.drawString("Restart  : R", 300, 200);
       repaint();
       while ( ! isPlaying && isStarted ) {
@@ -177,5 +168,24 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   @Override
   public void stop() {
     thread = null;
+  }
+  
+  private void showTitle() {
+    offg.setColor(Color.BLACK);
+    offg.fillRect(0, 0, width, height);
+    offg.setColor(Color.WHITE);
+    offg.setFont(new Font("Arial", Font.BOLD, 60));
+    offg.drawString("Gyoza", 150, 100);
+    offg.drawString("Brothers", 200, 170);
+    offg.setFont(new Font("Arial", Font.PLAIN, 20));
+    offg.drawString("Start : SPACE", 180, 250);
+  }
+  
+  private void showGameOverMessage() {    
+    offg.setFont(new Font("Arial", Font.BOLD, 40));
+    offg.drawString("GameOver", 300, 100);
+    offg.setFont(new Font("Arial", Font.PLAIN, 20));
+    offg.drawString("Continue : C", 300, 150);
+    offg.drawString("Menu : S", 300, 200);
   }
 }

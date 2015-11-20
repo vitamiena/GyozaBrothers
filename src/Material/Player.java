@@ -12,8 +12,8 @@ public class Player extends AbstractCharacter {
   private int jumpHeight;
   private boolean isImmortal;
   // コンストラクタ
-  public Player(int w, int h, int x, int y) {
-    super(w, h, x, y);
+  public Player(int w, int h, int x, int y, Color c) {
+    super(w, h, x, y, c);
     jumpHeight = 10;
     isImmortal = false;
   }
@@ -30,19 +30,14 @@ public class Player extends AbstractCharacter {
     g.drawRect(getX(), getY(), getWidth(), getHeight());
   }
  
-  public void draw(Graphics g, int tx) {
-    g.setColor(Color.GREEN);
-    g.fillRect(tx, getY(), getWidth(), getHeight());
-  }
- 
   public void move() {
     // プレイヤの移動(キー入力)
     Vector v = getMoveDir();
     
     // ジャンプキーが押されたとき
     if ( keyController.getUp() == KeyController.Key.Press ) {
-      keyController.setUpKeep();      
-    } 
+      keyController.setUpKeep();
+    }
 
     // 左右キーが押されたとき
     if ( keyController.getLeft() == KeyController.Key.Press ) {

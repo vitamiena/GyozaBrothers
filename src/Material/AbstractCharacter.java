@@ -9,8 +9,8 @@ abstract public class AbstractCharacter extends AbstractMaterial {
   private boolean isJumping; // ジャンプしているかどうか
 
   // インスタンスの生成 = 生命の誕生
-  public AbstractCharacter(int w, int h, int x, int y) {
-    super(w, h, x, y);
+  public AbstractCharacter(int w, int h, int x, int y, Color c) {
+    super(w, h, x, y, c);
     isAlive = true;
     isJumping = false;
   }

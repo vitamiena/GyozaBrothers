@@ -55,7 +55,7 @@ public class Map {
     //drawStructure(g, floor2, p);
       
     for ( Structure s : structures ) {
-      drawStructure(g, s, p);
+      drawMaterial(g, s, p);
     }
 
       /*
@@ -68,13 +68,13 @@ public class Map {
     
     for ( Item i : items ) {
       if ( i.isVisible() ) { 
-        drawItem(g, i, p);
+        drawMaterial(g, i, p);
       }
     }
     
     for ( Enemy e : enemies ) {
       if ( e.isAlive() ) {
-        drawEnemy(g, e, p);
+        drawMaterial(g, e, p);
       }
     }
     //floor1.draw(g, getRelativePosition(floor1.getX(), p));
@@ -161,25 +161,12 @@ public class Map {
     return x - p.getX() + player_x;
   }
   
-  public void drawStructure(Graphics g, Structure s, Player p) {
-    
-      if ( isInScreen(s, p) ) {
-        s.draw(g, getRelativePosition(s.getLeft(), p));
+  public void drawMaterial(Graphics g, AbstractMaterial m, Player p) {
+      if ( isInScreen(m, p) ) {
+        m.draw(g, getRelativePosition(m.getLeft(), p));
       }
   }
-  
-  public void drawItem(Graphics g, Item i, Player p) {
-    if ( isInScreen(i,p) ) {
-      i.draw(g, getRelativePosition(i.getLeft(), p));
-    }
-  }
-
-  public void drawEnemy(Graphics g, Enemy enemy, Player p) {
-    if ( isInScreen(enemy,p) ) {
-      enemy.draw(g, getRelativePosition(enemy.getLeft(), p));
-    }
-  }
-
+ 
   public boolean isInScreen(AbstractMaterial m, Player p) {
     int left, right;
    
