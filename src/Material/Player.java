@@ -78,33 +78,48 @@ public class Player extends AbstractCharacter {
     keyController.released(e);
   }
   
-  // Enemyクラスとの衝突
-  public boolean collidWithEnemy(Enemy enemy) {
+  // AbstractMaterialクラスとの衝突
+  public boolean collidWithMaterial(AbstractMaterial material) {
     Rectangle playerRec = getRectangle();
-    Rectangle enemyRec = enemy.getRectangle();
+    Rectangle materialRec = material.getRectangle();
         
-    return playerRec.intersects(enemyRec);
+    return playerRec.intersects(materialRec);
   }
-  
-  public boolean enemyStamp(Enemy enemy) {
-    int relativeY = Math.abs(enemy.getY()-getY()-enemy.getHeight());
-    int relativeRightX = Math.abs(getRight()-enemy.getRight());
-    int relativeLeftX = Math.abs(getLeft()-enemy.getLeft());
-       
-    if ( relativeY < 3 ) {
-      if ( relativeRightX < getWidth() || relativeLeftX < getWidth() ) {
-        return true;
-      }
+
+  // 直前の方向の判断(AbstractMaterial)
+  public boolean onMaterial(AbstractMaterial material) {
+    if ( material.getY() - previousPointY() > 0 ) { 
+      return true;
     }
     return false;
   }
 
-  // Itemクラスとの衝突
-  public boolean colidWithItem(Item i) {
-    Rectangle playerRec = getRectangle();
-    Rectangle itemRec = i.getRectangle();
+  public boolean underMaterial(AbstractMaterial material) {
+    if ( material.getY() - previousPointY() < 0 ) { 
+      return true;
+    }
+    return false;
+  }
 
-    return playerRec.intersects(itemRec);
+  public boolean leftMaterial(AbstractMaterial material) {
+    if ( material.getX() - previousPointX() > 0 ) { 
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean rightMaterial(AbstractMaterial material) {
+    if ( material.getX() - previousPointX() < 0 ) { 
+      return true;
+    }
+    return false;
+  }
+ 
+  public boolean rightCharacter(AbstractCharacter character) {
+    if ( character.previousPointX() - previousPointX() < 0 ) { 
+      return true;
+    }
+    return false;
   }
 
   public void getItem(Item i) {

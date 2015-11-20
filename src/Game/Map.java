@@ -94,8 +94,8 @@ public class Map {
     
     // エネミー衝突判定
     for ( Enemy enemy : enemies ) {
-      if ( p.collidWithEnemy(enemy) && enemy.isAlive() ) {
-        if ( p.enemyStamp(enemy) ) {
+      if ( p.collidWithMaterial(enemy) && enemy.isAlive() ) {
+        if ( p.onMaterial(enemy) ) {
           enemy.dead();
         } else {
           if ( p.isImmortal() ) {
@@ -109,7 +109,7 @@ public class Map {
 
     // アイテム衝突判定
     for ( Item item : items ) {
-      if ( item.isVisible() && p.colidWithItem(item) ) {
+      if ( item.isVisible() && p.collidWithMaterial(item) ) {
         p.getItem(item);
       }
     }
