@@ -22,6 +22,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   private Graphics offg; //画面のバッファ
   private int width, height;
   private boolean isPlaying;
+  private boolean isStarted;
   //private KeyController keyController = KeyController.getInstance();
   ArrayList<Structure> structures;
   ArrayList<Item> items;
@@ -69,6 +70,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     map = Map.getInstance(width, height, structures, items, enemies);
     player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
     isPlaying = true;
+    isStarted = false;
   }
   
   public void uopdate(Graphics g) {
@@ -81,7 +83,10 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   }
   
   public void keyPressed(KeyEvent e) {
-    if ( isPlaying ) {
+    if ( ! isStarted ) {
+      int key = e.getKeyCode();
+      if ( key == VK_SPACE ) { isStarted = true; }
+    } else if ( isPlaying ) {
       player.keyPressed(e);
     } else {
       char key = e.getKeyChar();
@@ -95,6 +100,12 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         case 'C': 
           map.retry(player);
           isPlaying = true;
+          break;
+        case 's':
+        case 'S':
+          isStarted = false;
+          isPlaying = true;
+          map.reset(player, structures, items, enemies);
           break;
         default: ; break;     
       }
@@ -112,6 +123,19 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   public void run() {
     Thread thisThread = Thread.currentThread();
     while ( thread == thisThread ) {
+      while ( ! isStarted ) {
+        offg.clearRect(0, 0, width, height);
+        offg.setFont(new Font("Arial", Font.BOLD, 60));
+        offg.drawString("Gyoza", 150, 100);
+        offg.drawString("Brothers", 200, 170);
+        offg.setFont(new Font("Arial", Font.PLAIN, 20));
+        offg.drawString("Start : SPACE", 180, 250);
+        repaint();
+        try {
+          Thread.sleep(10);
+        } catch (InterruptedException e) {      
+        }
+      }
       // プレイヤが生存している限りループ
       while ( player.isAlive() ) {  
         offg.clearRect(0, 0, width, height);
@@ -130,9 +154,10 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
       offg.drawString("GameOver", 300, 100);
       offg.setFont(new Font("Arial", Font.PLAIN, 20));
       offg.drawString("Continue : C", 300, 150);
+      offg.drawString("Menu : S", 300, 200);
       //offg.drawString("Restart  : R", 300, 200);
       repaint();
-      while ( ! isPlaying ) {
+      while ( ! isPlaying && isStarted ) {
         try {        
           Thread.sleep(10);
         } catch ( InterruptedException e ) {
