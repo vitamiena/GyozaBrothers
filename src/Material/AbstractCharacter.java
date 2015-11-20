@@ -66,11 +66,4 @@ abstract public class AbstractCharacter extends AbstractMaterial {
     isJumping = false;
   };
 
-  // StructureƒNƒ‰ƒX‚Æ‚ÌÕ“Ë
-  public boolean collidWithStructure(Structure s) {
-    Rectangle playerRec = getRectangle();
-    Rectangle strRec = s.getRectangle();
-
-    return playerRec.intersects(strRec);
-  }
 }
