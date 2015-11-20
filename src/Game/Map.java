@@ -149,7 +149,7 @@ public class Map {
     c.setY(c.getY() + v.vertical);
     // ’…’n”»’è
     for ( Structure structure : structures ) {
-      if ( c.collidWithStructure(structure) ) {
+      if ( c.collidWithMaterial(structure) ) {
         c.setY(structure.getTop() - c.getHeight());
         v.vertical = 0;
         c.landing();
