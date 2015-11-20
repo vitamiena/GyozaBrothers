@@ -191,6 +191,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     offg.drawString("GameOver", 300, 100);
     offg.setFont(new Font("Arial", Font.PLAIN, 20));
     offg.drawString("Continue : C", 300, 150);
+    offg.drawString("Restart : R", 300, 175);
     offg.drawString("Menu : S", 300, 200);
   }
 }
