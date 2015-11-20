@@ -58,7 +58,7 @@ abstract public class AbstractCharacter extends AbstractMaterial {
        */
   }
   
-    public void jump() {
+  public void jump() {
     isJumping = true;
   }
   
@@ -66,4 +66,20 @@ abstract public class AbstractCharacter extends AbstractMaterial {
     isJumping = false;
   };
 
+  // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
+  public boolean onMaterial(AbstractMaterial material) {
+    return ( material.getY() - previousPointY() > 0 );
+  }
+
+  public boolean underMaterial(AbstractMaterial material) {
+    return ( material.getY() - previousPointY() < 0 );
+  }
+
+  public boolean leftMaterial(AbstractMaterial material) {
+    return ( material.getX() - previousPointX() > 0 );
+  }
+  
+  public boolean rightMaterial(AbstractMaterial material) {
+    return ( material.getX() - previousPointX() < 0 );
+  }
 }
