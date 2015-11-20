@@ -115,13 +115,6 @@ public class Player extends AbstractCharacter {
     return false;
   }
  
-  public boolean rightCharacter(AbstractCharacter character) {
-    if ( character.previousPointX() - previousPointX() < 0 ) { 
-      return true;
-    }
-    return false;
-  }
-
   public void getItem(Item i) {
     // TODO : itemŽí—Þ‚É‰ž‚¶‚½‹““®
     jumpHeight = 20;
