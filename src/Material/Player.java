@@ -86,29 +86,7 @@ public class Player extends AbstractCharacter {
     return playerRec.intersects(materialRec);
   }
 
-  // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractCharacter)
-  public boolean onCharacter(AbstractCharacter character) {
-    if ( character.previousPointY() - previousPointY() > 0 ) { 
-      return true;
-    }
-    return false;
-  }
-
-  public boolean underCharacter(AbstractCharacter character) {
-    if ( character.previousPointY() - previousPointY() < 0 ) { 
-      return true;
-    }
-    return false;
-  }
-
-  public boolean leftCharacter(AbstractCharacter character) {
-    if ( character.previousPointX() - previousPointX() > 0 ) { 
-      return true;
-    }
-    return false;
-  }
-
-   // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
+  // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
   public boolean onMaterial(AbstractMaterial material) {
     if ( material.getY() - previousPointY() > 0 ) { 
       return true;

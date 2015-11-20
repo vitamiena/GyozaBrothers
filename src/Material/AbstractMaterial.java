@@ -2,6 +2,7 @@ package Material;
 
 import java.awt.Graphics;
 import java.awt.*;
+import Env.*;
 
 // すべての物体クラスが継承すべき抽象クラス
 abstract public class AbstractMaterial {
@@ -9,12 +10,14 @@ abstract public class AbstractMaterial {
   private int height;  // 高さ
   private int x;
   private int y;
+  public Vector moveDir;  // 移動方向
   
   public AbstractMaterial(int w, int h, int tx, int ty) {
     width = w;
     height = h;
     x = tx;
     y = ty;
+    moveDir = new Vector(0,0);
   }
   // 描画
   abstract public void draw(Graphics g);
@@ -35,5 +38,13 @@ abstract public class AbstractMaterial {
  
   public Rectangle getRectangle() {
     return new Rectangle(getX(), getY(), getWidth(), getHeight());
+  }
+
+  // 直前の座標の取得
+  public int previousPointX() {
+    return getX()-moveDir.horizontal;
+  }
+  public int previousPointY() {
+    return getY()-moveDir.vertical;
   }
 }
