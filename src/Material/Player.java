@@ -80,31 +80,19 @@ public class Player extends AbstractCharacter {
   
   // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
   public boolean onMaterial(AbstractMaterial material) {
-    if ( material.getY() - previousPointY() > 0 ) { 
-      return true;
-    }
-    return false;
+    return ( material.getY() - previousPointY() > 0 );
   }
 
   public boolean underMaterial(AbstractMaterial material) {
-    if ( material.getY() - previousPointY() < 0 ) { 
-      return true;
-    }
-    return false;
+    return ( material.getY() - previousPointY() < 0 );
   }
 
   public boolean leftMaterial(AbstractMaterial material) {
-    if ( material.getX() - previousPointX() > 0 ) { 
-      return true;
-    }
-    return false;
+    return ( material.getX() - previousPointX() > 0 );
   }
   
   public boolean rightMaterial(AbstractMaterial material) {
-    if ( material.getX() - previousPointX() < 0 ) { 
-      return true;
-    }
-    return false;
+    return ( material.getX() - previousPointX() < 0 );
   }
  
   public void getItem(Item i) {
