@@ -67,7 +67,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     enemies.add(new Enemy(30, 10, 700, height-100, Color.RED));    
         
     map = Map.getInstance(width, height, structures, items, enemies);
-    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY());
+    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
     isPlaying = true;
   }
   
