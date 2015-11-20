@@ -78,7 +78,7 @@ public class Player extends AbstractCharacter {
     keyController.released(e);
   }
   
-   // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
+  // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
   public boolean onMaterial(AbstractMaterial material) {
     if ( material.getY() - previousPointY() > 0 ) { 
       return true;
