@@ -86,7 +86,7 @@ public class Player extends AbstractCharacter {
     return playerRec.intersects(materialRec);
   }
 
-  // ’¼‘O‚Ì•ûŒü‚Ì”»’f
+  // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractCharacter)
   public boolean onCharacter(AbstractCharacter character) {
     if ( character.previousPointY() - previousPointY() > 0 ) { 
       return true;
@@ -107,7 +107,36 @@ public class Player extends AbstractCharacter {
     }
     return false;
   }
+
+   // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
+  public boolean onMaterial(AbstractMaterial material) {
+    if ( material.getY() - previousPointY() > 0 ) { 
+      return true;
+    }
+    return false;
+  }
+
+  public boolean underMaterial(AbstractMaterial material) {
+    if ( material.getY() - previousPointY() < 0 ) { 
+      return true;
+    }
+    return false;
+  }
+
+  public boolean leftMaterial(AbstractMaterial material) {
+    if ( material.getX() - previousPointX() > 0 ) { 
+      return true;
+    }
+    return false;
+  }
   
+  public boolean rightMaterial(AbstractMaterial material) {
+    if ( material.getX() - previousPointX() < 0 ) { 
+      return true;
+    }
+    return false;
+  }
+ 
   public boolean rightCharacter(AbstractCharacter character) {
     if ( character.previousPointX() - previousPointX() < 0 ) { 
       return true;
