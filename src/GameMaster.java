@@ -38,6 +38,14 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     img = createImage(width, height+100);
     offg = img.getGraphics(); // オフスクリーン
     
+    materialInit();
+    map = Map.getInstance(width, height, structures, items, enemies);
+    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
+    isPlaying = true;
+    isStarted = false;
+  }
+  
+  private void materialInit() {
     structures = new ArrayList<Structure>();
     structures.add(new Structure(200, 100, 0, height-50, Color.ORANGE));
     structures.add(new Structure(300, 100, 250, height-50, Color.ORANGE));
@@ -66,11 +74,6 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     enemies = new ArrayList<Enemy>();
     enemies.add(new Enemy(30, 10, 200, height-100, Color.RED));
     enemies.add(new Enemy(30, 10, 700, height-100, Color.RED));    
-        
-    map = Map.getInstance(width, height, structures, items, enemies);
-    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
-    isPlaying = true;
-    isStarted = false;
   }
   
   public void uopdate(Graphics g) {
@@ -93,6 +96,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
       switch (key) {
         case 'r': ;
         case 'R':
+          materialInit();
           map.reset(player, structures, items, enemies);
           isPlaying = true;
           break;
@@ -105,6 +109,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         case 'S':
           isStarted = false;
           isPlaying = true;
+          materialInit();
           map.reset(player, structures, items, enemies);
           break;
         default: ; break;     
@@ -186,6 +191,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     offg.drawString("GameOver", 300, 100);
     offg.setFont(new Font("Arial", Font.PLAIN, 20));
     offg.drawString("Continue : C", 300, 150);
+    offg.drawString("Restart : R", 300, 175);
     offg.drawString("Menu : S", 300, 200);
   }
 }
