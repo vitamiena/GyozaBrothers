@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/s
 
 javac -classpath . Env/*.java
 javac -classpath . Material/*.java

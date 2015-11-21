@@ -98,10 +98,11 @@ public class Map {
         if ( p.enemyStamp(enemy) ) {
           enemy.dead();
         } else {
-          if ( p.isImmortal() ) {
-            p.toDeadable();
-          } else {
+          if ( !p.isImmortal() ) {
             p.dead();
+          } else {
+            p.toDeadable();
+            enemy.dead();
           }
         } 
       }
@@ -193,6 +194,10 @@ public class Map {
   }
   
   public void retry(Player p) {
+    for ( Item i : items ) {
+      i.reset();
+    }
+
     if ( p.getLeft() <= check_point ) {
       p.setX(player_x);
       p.setY(player_y);
