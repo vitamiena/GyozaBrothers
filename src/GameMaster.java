@@ -28,6 +28,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   ArrayList<Item> items;
   ArrayList<Enemy> enemies;
   private int life;
+  private int maxLife = 3;
   
   @Override
   public void init() {  
@@ -44,7 +45,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
     isPlaying = true;
     isStarted = false;
-    life = 3;
+    life = maxLife;
   }
   
   private void materialInit() {
@@ -101,7 +102,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
           materialInit();
           map.reset(player, structures, items, enemies);
           isPlaying = true;
-          life = 3;
+          life = maxLife;
           break;
         case 'c': 
         case 'C': 
@@ -117,6 +118,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
           isPlaying = true;
           materialInit();
           map.reset(player, structures, items, enemies);
+          life = maxLife;
           break;
         default: ; break;     
       }
