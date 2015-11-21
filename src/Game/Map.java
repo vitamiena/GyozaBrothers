@@ -49,22 +49,11 @@ public class Map {
   
   // 各要素の描画
   public void draw(Graphics g, Player p) {
-    //g.fillRect(0, buttom+p.height+1, 600, 100);
-    //drawStructure(g, floor1, p);
-    //drawStructure(g, floor2, p);
       
     for ( Structure s : structures ) {
       drawMaterial(g, s, p);
     }
 
-      /*
-    if ( item[0].isVisible() ) {
-      drawItem(g, item[0], p);  //追加
-    }
-    if (enemy.isAlive()) {
-      drawEnemy(g, enemy, p);
-    }*/
-    
     for ( Item i : items ) {
       if ( i.isVisible() ) { 
         drawMaterial(g, i, p);
@@ -76,8 +65,7 @@ public class Map {
         drawMaterial(g, e, p);
       }
     }
-    //floor1.draw(g, getRelativePosition(floor1.getX(), p));
-    //floor2.draw(g, getRelativePosition(floor2.getX(), p));
+
     p.draw(g, player_x);
   }
   
@@ -131,29 +119,44 @@ public class Map {
   public void characterMove(AbstractCharacter c) {
     // プレイヤの移動方向の取得
     Vector v = c.getMoveDir();
-      
+    
     // 重力による落下
     if ( v.vertical < 5 ) {
       v.vertical += 1; 
     }
-      
+    
     // 摩擦力による減速
     if ( v.horizontal > 0 ) {
       v.horizontal -=1;
     } else if ( v.horizontal < 0 ) {
       v.horizontal += 1;
     }
-    
+
     // 自然の要素(重力、摩擦力)による移動方向の修正
     c.setMoveDir(v);
     c.setX(c.getX() + v.horizontal);
-    c.setY(c.getY() + v.vertical);
+    c.setY(c.getY() + v.vertical);        
+    
     // 着地判定
     for ( Structure structure : structures ) {
       if ( c.collidWithMaterial(structure) ) {
-        c.setY(structure.getTop() - c.getHeight());
-        v.vertical = 0;
-        c.landing();
+        if ( c.onMaterial(structure) ) {
+          c.setY(structure.getTop() - c.getHeight());
+          v.vertical = 0;
+          c.landing();
+        }
+        if ( c.underMaterial(structure) ) {
+          c.setY(structure.getBottom());
+          v.vertical = 0;
+        }
+        if ( c.leftMaterial(structure) ) {
+          c.setX( structure.getLeft() - c.getWidth() );
+          v.horizontal = 0;
+        } 
+        if ( c.rightMaterial(structure) ){
+          c.setX( structure.getRight() );
+          v.horizontal = 0;
+        }
       }
     }
   }

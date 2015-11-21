@@ -75,4 +75,20 @@ abstract public class AbstractCharacter extends AbstractMaterial {
     isJumping = false;
   };
 
+  // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
+  public boolean onMaterial(AbstractMaterial material) {
+    return ( material.getTop() - previousBottom() >= 0 );
+  }
+
+  public boolean underMaterial(AbstractMaterial material) {
+    return ( material.getBottom() - previousTop() <= 0 );
+  }
+
+  public boolean leftMaterial(AbstractMaterial material) {
+    return ( material.getLeft() - previousRight() >= 0 );
+  }
+  
+  public boolean rightMaterial(AbstractMaterial material) {
+    return ( material.getRight() - previousLeft() <= 0 );
+  }
 }

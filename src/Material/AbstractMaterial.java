@@ -47,11 +47,20 @@ abstract public class AbstractMaterial {
   }
 
   // 直前の座標の取得
-  public int previousPointX() {
-    return getX()-moveDir.horizontal;
+  public int previousLeft() {
+    return getX() - moveDir.horizontal;
   }
-  public int previousPointY() {
-    return getY()-moveDir.vertical;
+  
+  public int previousRight() {
+    return getX() + getWidth() - moveDir.horizontal;
+  }
+  
+  public int previousTop() {
+    return getY() - moveDir.vertical;
+  }
+  
+  public int previousBottom() {
+    return getY() + getHeight() - moveDir.vertical;
   }
 
   // 他のAbstractMaterialクラスとの衝突

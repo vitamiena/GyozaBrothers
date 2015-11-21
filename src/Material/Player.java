@@ -76,23 +76,6 @@ public class Player extends AbstractCharacter {
   public void keyReleased(KeyEvent e) {
     keyController.released(e);
   }
-  
-  // ’¼‘O‚Ì•ûŒü‚Ì”»’f(AbstractMaterial)
-  public boolean onMaterial(AbstractMaterial material) {
-    return ( material.getY() - previousPointY() > 0 );
-  }
-
-  public boolean underMaterial(AbstractMaterial material) {
-    return ( material.getY() - previousPointY() < 0 );
-  }
-
-  public boolean leftMaterial(AbstractMaterial material) {
-    return ( material.getX() - previousPointX() > 0 );
-  }
-  
-  public boolean rightMaterial(AbstractMaterial material) {
-    return ( material.getX() - previousPointX() < 0 );
-  }
  
   public void getItem(Item i) {
     // TODO : itemŽí—Þ‚É‰ž‚¶‚½‹““®
