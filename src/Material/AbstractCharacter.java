@@ -19,6 +19,8 @@ abstract public class AbstractCharacter extends AbstractMaterial {
 
   // 死亡
   public void dead() {
+    // ジャンプの高さをデフォルトに戻す
+    setjumpHeight(10);
     isAlive = false;
   }
   

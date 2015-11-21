@@ -87,7 +87,6 @@ public class Map {
     
     // €–S”»’è
     if ( p.getTop() > height ) {
-      p.setjumpHeight(10);
       p.dead();
       return;
     }
