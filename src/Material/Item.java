@@ -18,5 +18,10 @@ public class Item extends AbstractMaterial {
   public void toInvisible () {
     isVisible = false;
   }
+
+  public void reset () {
+    isVisible = true;
+  }
+
 }
 
