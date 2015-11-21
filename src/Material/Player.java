@@ -9,16 +9,24 @@ import Env.*;
 
 public class Player extends AbstractCharacter {
   private KeyController keyController = KeyController.getInstance();
+  private int dashSpeed;
   private boolean isImmortal;
+  
   // コンストラクタ
   public Player(int w, int h, int x, int y, Color c) {
     super(w, h, x, y, c);
+
+    setjumpHeight(10);
+    dashSpeed = 5;
     isImmortal = false;
   }
 
   @Override
   public void reborn() {
     super.reborn();
+
+    setjumpHeight(10);
+    dashSpeed = 5;
     isImmortal = false;
   }
 
@@ -45,9 +53,9 @@ public class Player extends AbstractCharacter {
     
     // 左右への移動方向の設定
     if ( keyController.getLeft() == KeyController.Key.Keep ) {
-      v.horizontal = -5;
+      v.horizontal = -dashSpeed;
     } else if ( keyController.getRight() == KeyController.Key.Keep ) {
-      v.horizontal = 5;
+      v.horizontal = dashSpeed;
     } else {
       v.horizontal = 0;
     }
@@ -88,7 +96,12 @@ public class Player extends AbstractCharacter {
  
   public void getItem(Item i) {
     // TODO : item種類に応じた挙動
-    setjumpHeight(20);
+    if ( getjumpHeight() == 10 ) { 
+      setjumpHeight(20);
+      isImmortal = true;
+    } else {
+      dashSpeed = 10;
+    }
     i.toInvisible();
   }
 
@@ -97,6 +110,11 @@ public class Player extends AbstractCharacter {
   }
 
   public void toDeadable() {
-    isImmortal = false;
+    if ( dashSpeed == 10 ) {
+      dashSpeed = 5;
+    } else {
+      setjumpHeight(10);
+      isImmortal = false;
+    }
   }
 }
