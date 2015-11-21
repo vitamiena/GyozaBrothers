@@ -12,7 +12,6 @@ abstract public class AbstractMaterial {
   private int y;
   public Vector moveDir;  // ˆÚ“®•ûŒü
   private Color color;
-
   
   public AbstractMaterial(int w, int h, int tx, int ty, Color c) {
     width = w;

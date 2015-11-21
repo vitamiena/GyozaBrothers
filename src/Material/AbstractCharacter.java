@@ -7,16 +7,20 @@ import Env.*;
 abstract public class AbstractCharacter extends AbstractMaterial {
   private boolean isAlive; // 生存フラグ
   private boolean isJumping; // ジャンプしているかどうか
+  private int jumpHeight;
 
   // インスタンスの生成 = 生命の誕生
   public AbstractCharacter(int w, int h, int x, int y, Color c) {
     super(w, h, x, y, c);
     isAlive = true;
     isJumping = false;
+    jumpHeight = 10;
   }
 
   // 死亡
   public void dead() {
+    // ジャンプの高さをデフォルトに戻す
+    setjumpHeight(10);
     isAlive = false;
   }
   
@@ -44,6 +48,10 @@ abstract public class AbstractCharacter extends AbstractMaterial {
     return moveDir;
   }
 
+  // ジャンプの高さ
+  public void setjumpHeight( int y ) { jumpHeight = y; }
+  public int getjumpHeight() { return jumpHeight; }
+
   // 移動
   public void move(String dir) {
     /*
@@ -57,8 +65,9 @@ abstract public class AbstractCharacter extends AbstractMaterial {
        }
        */
   }
-  
-    public void jump() {
+
+  public void jump() {
+    moveDir.vertical -= jumpHeight;
     isJumping = true;
   }
   

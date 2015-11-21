@@ -22,7 +22,6 @@ public class Map {
   private ArrayList<Life> lifes;
   private ArrayList<Item> items;
   private ArrayList<Enemy> enemies;
-  
     
   private Map() {
   }
@@ -97,6 +96,7 @@ public class Map {
     for ( Enemy enemy : enemies ) {
       if ( p.collidWithMaterial(enemy) && enemy.isAlive() ) {
         if ( p.onMaterial(enemy) ) {
+          p.jump();
           enemy.dead();
         } else {
           if ( !p.isImmortal() ) {
