@@ -27,6 +27,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   ArrayList<Structure> structures;
   ArrayList<Item> items;
   ArrayList<Enemy> enemies;
+  private int life;
   
   @Override
   public void init() {  
@@ -43,6 +44,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
     isPlaying = true;
     isStarted = false;
+    life = 3;
   }
   
   private void materialInit() {
@@ -66,7 +68,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     structures.add(new Structure(50, 200, 2700, height-180, Color.ORANGE));
     structures.add(new Structure(100, 100, 2750, height-50, Color.ORANGE));
     structures.add(new Structure(400, 100, 2350, -50, Color.ORANGE));
-    
+
     items = new ArrayList<Item>();
     items.add(new Item(10, 10, 100, height-100, Color.BLUE));
     items.add(new Item(10, 10, 400, height-100, Color.BLUE));
@@ -99,11 +101,15 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
           materialInit();
           map.reset(player, structures, items, enemies);
           isPlaying = true;
+          life = 3;
           break;
         case 'c': 
         case 'C': 
-          map.retry(player);
-          isPlaying = true;
+          if ( life > 0) {
+            map.retry(player);
+            isPlaying = true;
+            life--;
+          }
           break;
         case 's':
         case 'S':
@@ -143,6 +149,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         map.enemyMove(player);
         map.playerMove(player); // ÉvÉåÉCÉÑÇÃâÊñ è„ÇÃà⁄ìÆ
         map.draw(offg, player); // óvëfÇÃï`âÊ
+        showLife();
         repaint();  
         try {
           Thread.sleep(10);
@@ -187,11 +194,21 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   }
   
   private void showGameOverMessage() {    
+    offg.setColor(Color.RED);
     offg.setFont(new Font("Arial", Font.BOLD, 40));
     offg.drawString("GameOver", 300, 100);
     offg.setFont(new Font("Arial", Font.PLAIN, 20));
-    offg.drawString("Continue : C", 300, 150);
+    if ( life != 0 ) {
+      offg.drawString("Continue : C", 300, 150);
+    }
     offg.drawString("Restart : R", 300, 175);
     offg.drawString("Menu : S", 300, 200);
+  }
+
+  private void showLife() {
+    offg.setColor(Color.PINK);
+    for ( int i = 0; i < life; i++ ) {
+      offg.fillRect(10+(20*i), 10, 10, 10);
+    }
   }
 }

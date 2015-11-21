@@ -19,6 +19,7 @@ public class Map {
   private int check_point = 600;
       
   private ArrayList<Structure> structures;
+  private ArrayList<Life> lifes;
   private ArrayList<Item> items;
   private ArrayList<Enemy> enemies;
   
