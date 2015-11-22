@@ -75,8 +75,9 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     items.add(new Item(10, 10, 400, height-100, Color.BLUE));
     
     enemies = new ArrayList<Enemy>();
-    enemies.add(new Enemy(30, 10, 200, height-100, Color.RED));
-    enemies.add(new Enemy(30, 10, 700, height-100, Color.RED));    
+    enemies.add(new Runner(30, 10, 200, height-100, Color.RED));
+    enemies.add(new Runner(30, 10, 700, height-100, Color.RED));    
+    enemies.add(new Jumper(30, 10, 800, height-100, Color.RED));    
   }
   
   public void uopdate(Graphics g) {
