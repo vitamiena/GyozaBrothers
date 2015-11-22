@@ -17,10 +17,12 @@ public class Map {
   private int player_y;
   protected int buttom;
   private int check_point = 600;
+  private boolean isGoal;
       
   private ArrayList<Structure> structures;
   private ArrayList<Item> items;
   private ArrayList<Enemy> enemies;
+  private Structure goal;
     
   private Map() {
   }
@@ -36,15 +38,20 @@ public class Map {
     // プレイヤの初期位置
     player_x = 100;
     player_y = 0;
-    
+    isGoal = false;
   }  
   
-  public static Map getInstance(int w, int h, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e) {
+  public static Map getInstance(int w, int h, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e, Structure goal) {
     singleton.initMap(w, h);
     singleton.structures = new ArrayList<Structure>(s); 
     singleton.items = new ArrayList<Item>(i); 
     singleton.enemies = new ArrayList<Enemy>(e);
+    singleton.goal = goal;
     return singleton;
+  }
+  
+  public boolean isGoal() {
+    return isGoal;
   }
   
   // 各要素の描画
@@ -65,6 +72,8 @@ public class Map {
         drawMaterial(g, e, p);
       }
     }
+    
+    drawMaterial(g, goal, p);
 
     p.draw(g, player_x);
   }
@@ -101,6 +110,11 @@ public class Map {
       if ( item.isVisible() && p.collidWithMaterial(item) ) {
         p.getItem(item);
       }
+    }
+    
+    // ゴール判定
+    if ( p.collidWithMaterial(goal) ) {
+      isGoal = true;
     }
   }
   
@@ -181,6 +195,7 @@ public class Map {
     return true;
   }
   
+  // enemyはそのまま、チェックポイントから
   public void retry(Player p) {
     for ( Item i : items ) {
       i.reset();
@@ -196,7 +211,7 @@ public class Map {
     p.reborn();
   }
   
-  // resetと同じ動作
+  // マップを初期化し、最初から
   public void reset(Player p, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e) {
     initMap(width, height);
     structures = new ArrayList<Structure>(s); 
