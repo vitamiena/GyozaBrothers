@@ -107,9 +107,7 @@ public class Map {
   public void enemyMove(Player p) {
     for ( Enemy enemy : enemies ) {
       if ( isInScreen(enemy, p) ) {
-        Vector v = enemy.getMoveDir();
-        v.horizontal = -2;
-        enemy.setMoveDir(v);
+        enemy.motion();
         characterMove(enemy);
       }
     }
@@ -117,7 +115,7 @@ public class Map {
   
   // キャラクタの移動 (プレイヤ、エネミー共通)
   public void characterMove(AbstractCharacter c) {
-    // プレイヤの移動方向の取得
+    // キャラクタの移動方向の取得
     Vector v = c.getMoveDir();
     
     // 重力による落下
