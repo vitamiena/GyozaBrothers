@@ -23,10 +23,12 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   private int width, height;
   private boolean isPlaying;
   private boolean isStarted;
+  
   //private KeyController keyController = KeyController.getInstance();
   ArrayList<Structure> structures;
   ArrayList<Item> items;
   ArrayList<Enemy> enemies;
+  Structure goal;
   private int life;
   private int maxLife = 3;
   
@@ -41,7 +43,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     offg = img.getGraphics(); // オフスクリーン
     
     materialInit();
-    map = Map.getInstance(width, height, structures, items, enemies);
+    map = Map.getInstance(width, height, structures, items, enemies, goal);
     player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
     isPlaying = true;
     isStarted = false;
@@ -78,6 +80,8 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     enemies.add(new Runner(30, 10, 200, height-100, Color.RED));
     enemies.add(new Runner(30, 10, 700, height-100, Color.RED));    
     enemies.add(new Jumper(30, 10, 800, height-100, Color.RED));    
+    
+    goal = new Structure(10, 600, 2840, 50, Color.GREEN);
   }
   
   public void uopdate(Graphics g) {
@@ -107,7 +111,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
           break;
         case 'c': 
         case 'C': 
-          if ( life > 0) {
+          if ( life > 0 && ( ! map.isGoal() ) ) {
             map.retry(player);
             isPlaying = true;
             life--;
@@ -146,7 +150,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         }
       }
       // プレイヤが生存している限りループ
-      while ( player.isAlive() ) {  
+      while ( player.isAlive() && ( ! map.isGoal() ) ) {  
         offg.clearRect(0, 0, width, height);
         player.move(); // プレイヤの移動方向の設定
         map.enemyMove(player);
@@ -160,13 +164,16 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         }
       }
       isPlaying = false;
-      showGameOverMessage();
-      //offg.drawString("Restart  : R", 300, 200);
-      repaint();
-      while ( ! isPlaying && isStarted ) {
-        try {        
-          Thread.sleep(10);
-        } catch ( InterruptedException e ) {
+      if ( map.isGoal() ) {
+        showGoalMessage();
+      } else {
+        showGameOverMessage();        
+        repaint();
+        while ( ! isPlaying && isStarted ) {
+          try {        
+            Thread.sleep(10);
+          } catch ( InterruptedException e ) {
+          }
         }
       }
     }
@@ -204,6 +211,15 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     if ( life != 0 ) {
       offg.drawString("Continue : C", 300, 150);
     }
+    offg.drawString("Restart : R", 300, 175);
+    offg.drawString("Menu : S", 300, 200);
+  }
+  
+  private void showGoalMessage() {    
+    offg.setColor(Color.RED);
+    offg.setFont(new Font("Arial", Font.BOLD, 40));
+    offg.drawString("Goal !!", 300, 100);
+    offg.setFont(new Font("Arial", Font.PLAIN, 20));
     offg.drawString("Restart : R", 300, 175);
     offg.drawString("Menu : S", 300, 200);
   }
