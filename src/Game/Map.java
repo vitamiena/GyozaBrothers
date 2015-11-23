@@ -18,6 +18,8 @@ public class Map {
   protected int buttom;
   private int check_point = 600;
   private boolean isGoal;
+  private int itemScore;
+  private int enemyScore;
       
   private ArrayList<Structure> structures;
   private ArrayList<Item> items;
@@ -47,11 +49,21 @@ public class Map {
     singleton.items = new ArrayList<Item>(i); 
     singleton.enemies = new ArrayList<Enemy>(e);
     singleton.goal = goal;
+    singleton.itemScore = 0;
+    singleton.enemyScore = 0;
     return singleton;
   }
   
   public boolean isGoal() {
     return isGoal;
+  }
+
+  public int getItemScore() {
+    return itemScore;
+  }
+  
+  public int getEnemyScore() {
+    return enemyScore;
   }
   
   // Še—v‘f‚Ì•`‰æ
@@ -94,12 +106,14 @@ public class Map {
         if ( p.onMaterial(enemy) ) {
           p.jump();
           enemy.dead();
+          enemyScore += 100;
         } else {
           if ( !p.isImmortal() ) {
             p.dead();
           } else {
             p.toDeadable();
-            enemy.dead();
+            enemy.dead();       
+            enemyScore += 100;
           }
         } 
       }
@@ -109,6 +123,7 @@ public class Map {
     for ( Item item : items ) {
       if ( item.isVisible() && p.collidWithMaterial(item) ) {
         p.getItem(item);
+        itemScore += 50;
       }
     }
     
@@ -220,5 +235,7 @@ public class Map {
     p.setX(player_x);
     p.setY(player_y);
     p.reborn();
+    itemScore = 0;
+    enemyScore = 0;
   }
 }

@@ -31,6 +31,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   Structure goal;
   private int life;
   private int maxLife = 3;
+  private double timeScore;
+  private final int maxTimeScore = 1000;
+  private int sleepTime;
+  private final int maxTime = 100;
+  private int ms;
   
   @Override
   public void init() {  
@@ -48,6 +53,9 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     isPlaying = true;
     isStarted = false;
     life = maxLife;
+    timeScore = 1000.0;
+    sleepTime = 10;
+    ms = 0;
   }
   
   private void materialInit() {
@@ -108,6 +116,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
           map.reset(player, structures, items, enemies);
           isPlaying = true;
           life = maxLife;
+          timeScore = maxTimeScore;
           break;
         case 'c': 
         case 'C': 
@@ -124,6 +133,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
           materialInit();
           map.reset(player, structures, items, enemies);
           life = maxLife;
+          timeScore = maxTimeScore;
           break;
         default: ; break;     
       }
@@ -149,6 +159,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         } catch (InterruptedException e) {      
         }
       }
+      ms = 0;
       // プレイヤが生存している限りループ
       while ( player.isAlive() && ( ! map.isGoal() ) ) {  
         offg.clearRect(0, 0, width, height);
@@ -159,8 +170,14 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         showLife();
         repaint();  
         try {
-          Thread.sleep(10);
+          Thread.sleep(sleepTime);          
+          // 時間スコアの減算 (maxTime秒で0にする)
         } catch (InterruptedException e) {      
+        }
+        ms += sleepTime;
+        if ( ms == 1000 ) {
+          timeScore -= ( maxTimeScore + 0.0 ) / maxTime;
+          ms = 0;
         }
       }
       isPlaying = false;
@@ -219,9 +236,20 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     offg.setColor(Color.RED);
     offg.setFont(new Font("Arial", Font.BOLD, 40));
     offg.drawString("Goal !!", 300, 100);
+    
+    offg.setFont(new Font("Arial", Font.PLAIN, 15));
+    offg.drawString("Enemy : " + map.getEnemyScore() + " P", 350, 150);
+    offg.drawString("Item  : " + map.getItemScore() + " P", 350, 165);
+    offg.drawString("Life  : " + 200 * life + " P", 350, 180);
+    offg.drawString("Time  : " + (int) timeScore + " P", 350, 195);
+    
+    int total = map.getEnemyScore() + map.getItemScore() + ( life * 200 ) + (int) timeScore;
+    offg.setFont(new Font("Arial", Font.BOLD, 20));
+    offg.drawString("Total : " + total + " P", 330, 230);
+    
     offg.setFont(new Font("Arial", Font.PLAIN, 20));
-    offg.drawString("Restart : R", 300, 175);
-    offg.drawString("Menu : S", 300, 200);
+    offg.drawString("Restart : R", 300, 275);
+    offg.drawString("Menu : S", 300, 300);
   }
 
   private void showLife() {
