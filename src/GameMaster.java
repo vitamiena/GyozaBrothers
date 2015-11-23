@@ -171,14 +171,13 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         repaint();  
         try {
           Thread.sleep(sleepTime);          
-          // ŽžŠÔƒXƒRƒA‚ÌŒ¸ŽZ (120•b‚Å0‚É‚·‚é)
+          // ŽžŠÔƒXƒRƒA‚ÌŒ¸ŽZ (maxTime•b‚Å0‚É‚·‚é)
         } catch (InterruptedException e) {      
         }
         ms += sleepTime;
         if ( ms == 1000 ) {
           timeScore -= ( maxTimeScore + 0.0 ) / maxTime;
           ms = 0;
-          System.out.println(timeScore);
         }
       }
       isPlaying = false;
