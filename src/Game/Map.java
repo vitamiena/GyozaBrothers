@@ -94,6 +94,7 @@ public class Map {
   public void update(Player p) {
     enemyMove(p);
     playerMove(p);
+    structureMove(p);
   }
   
   // ƒvƒŒƒCƒ„‚ÌˆÚ“®
@@ -144,6 +145,18 @@ public class Map {
       if ( isInScreen(enemy, p) ) {
         enemy.motion();
         characterMove(enemy);
+      }
+    }
+  }
+  
+  public void structureMove(Player p) {
+    for ( Structure structure : structures ) {
+      if ( isInScreen(structure, p) ) {
+        structure.motion();
+        Vector v;
+        v = structure.getMoveDir();
+        structure.setX(structure.getX() + v.horizontal);
+        structure.setY(structure.getY() + v.vertical);
       }
     }
   }
