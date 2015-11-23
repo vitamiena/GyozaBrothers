@@ -112,7 +112,8 @@ public class Map {
             p.dead();
           } else {
             p.toDeadable();
-            enemy.dead();            
+            enemy.dead();       
+            enemyScore += 100;
           }
         } 
       }

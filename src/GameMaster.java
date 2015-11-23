@@ -240,11 +240,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     
     offg.setFont(new Font("Arial", Font.PLAIN, 15));
     offg.drawString("Enemy : " + map.getEnemyScore() + " P", 350, 150);
-    offg.drawString("Item  : " + map.getEnemyScore() + " P", 350, 165);
+    offg.drawString("Item  : " + map.getItemScore() + " P", 350, 165);
     offg.drawString("Life  : " + 200 * life + " P", 350, 180);
     offg.drawString("Time  : " + (int) timeScore + " P", 350, 195);
     
-    int total = map.getEnemyScore() + map.getEnemyScore() + ( life * 200 ) + (int) timeScore;
+    int total = map.getEnemyScore() + map.getItemScore() + ( life * 200 ) + (int) timeScore;
     offg.setFont(new Font("Arial", Font.BOLD, 20));
     offg.drawString("Total : " + total + " P", 330, 230);
     
