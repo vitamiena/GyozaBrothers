@@ -90,6 +90,12 @@ public class Map {
     p.draw(g, player_x);
   }
   
+  // マップ上の要素の移動
+  public void update(Player p) {
+    enemyMove(p);
+    playerMove(p);
+  }
+  
   // プレイヤの移動
   public void playerMove(Player p) {
     characterMove(p);
