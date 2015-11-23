@@ -88,6 +88,8 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     enemies.add(new Runner(30, 10, 200, height-100, Color.RED));
     enemies.add(new Runner(30, 10, 700, height-100, Color.RED));    
     enemies.add(new Jumper(30, 10, 800, height-100, Color.RED));    
+    enemies.add(new Randommer(30, 10, 350, height-100, Color.RED));    
+    enemies.add(new RocketMan(30, 10, 400, height-120, Color.RED));
     
     goal = new Structure(10, 600, 2840, 50, Color.GREEN);
   }
