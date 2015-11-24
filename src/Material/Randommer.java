@@ -11,11 +11,6 @@ public class Randommer extends Enemy {
   public Randommer ( int w, int h, int x, int y, Color c ) {
     super( w, h, x, y, c );
     time = 0;
-    Vector v = getMoveDir();
-    Random rnd = new Random();
-    v.horizontal = rnd.nextInt(20)-10;
-    v.vertical = rnd.nextInt(20)-10;
-    setMoveDir(v);
   }
 
   public void motion () {
