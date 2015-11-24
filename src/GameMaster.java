@@ -47,15 +47,17 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     img = createImage(width, height+100);
     offg = img.getGraphics(); // オフスクリーン
     
-    materialInit();
-    map = Map.getInstance(width, height, structures, items, enemies, goal);
-    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
     isPlaying = true;
     isStarted = false;
     life = maxLife;
     timeScore = 1000.0;
     sleepTime = 10;
     ms = 0;
+
+    materialInit();
+    map = Map.getInstance(width, height, structures, items, enemies, goal);
+    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
+    
   }
   
   private void materialInit() {
@@ -88,7 +90,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     enemies.add(new Runner(30, 10, 200, height-100, Color.RED));
     enemies.add(new Runner(30, 10, 700, height-100, Color.RED));    
     enemies.add(new Jumper(30, 10, 800, height-100, Color.RED));    
-    enemies.add(new Randommer(30, 10, 350, height-100, Color.RED));    
+    enemies.add(new Randommer(30, 10, 350, height-100, Color.RED, sleepTime));    
     enemies.add(new RocketMan(30, 10, 400, height-120, Color.RED));
     
     goal = new Structure(10, 600, 2840, 50, Color.GREEN);

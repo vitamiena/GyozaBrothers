@@ -6,7 +6,7 @@ import java.awt.*;
 import Env.*;
 
 public class Runner extends Enemy {
-  private int speed;
+  private int speed = -2;
   public Runner ( int w, int h, int x, int y, Color c ) {
     super( w, h, x, y, c );
     Vector v = getMoveDir();
