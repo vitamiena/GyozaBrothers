@@ -28,6 +28,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   ArrayList<Structure> structures;
   ArrayList<Item> items;
   ArrayList<Enemy> enemies;
+  ArrayList<Trap> traps;
   Structure goal;
   private int life;
   private int maxLife = 3;
@@ -55,7 +56,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     ms = 0;
 
     materialInit();
-    map = Map.getInstance(width, height, structures, items, enemies, goal);
+    map = Map.getInstance(width, height, structures, items, enemies, traps, goal);
     player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
     
   }
@@ -89,9 +90,12 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     enemies = new ArrayList<Enemy>();
     enemies.add(new Runner(30, 10, 200, height-100, Color.RED));
     enemies.add(new Runner(30, 10, 700, height-100, Color.RED));    
-    enemies.add(new Jumper(30, 10, 800, height-100, Color.RED));    
+    enemies.add(new Jumper(30, 10, 800, height-100, Color.RED));
     enemies.add(new Randommer(30, 10, 350, height-100, Color.RED, sleepTime));    
     enemies.add(new RocketMan(30, 10, 400, height-120, Color.RED));
+    
+    traps = new ArrayList<Trap>();
+    traps.add(new RocketTrap(15, 10, 2800, height-51, Color.YELLOW));
     
     goal = new Structure(10, 600, 2840, 50, Color.GREEN);
   }

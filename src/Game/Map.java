@@ -24,6 +24,7 @@ public class Map {
   private ArrayList<Structure> structures;
   private ArrayList<Item> items;
   private ArrayList<Enemy> enemies;
+  private ArrayList<Trap> traps;
   private Structure goal;
     
   private Map() {
@@ -43,11 +44,12 @@ public class Map {
     isGoal = false;
   }  
   
-  public static Map getInstance(int w, int h, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e, Structure goal) {
+  public static Map getInstance(int w, int h, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e, ArrayList<Trap> t, Structure goal) {
     singleton.initMap(w, h);
     singleton.structures = new ArrayList<Structure>(s); 
     singleton.items = new ArrayList<Item>(i); 
     singleton.enemies = new ArrayList<Enemy>(e);
+    singleton.traps = new ArrayList<Trap>(t);
     singleton.goal = goal;
     singleton.itemScore = 0;
     singleton.enemyScore = 0;
@@ -83,6 +85,10 @@ public class Map {
       if ( e.isAlive() ) {
         drawMaterial(g, e, p);
       }
+    }
+    
+    for ( Trap t : traps ) {
+      drawMaterial(g, t, p);
     }
     
     drawMaterial(g, goal, p);
@@ -131,6 +137,13 @@ public class Map {
       if ( item.isVisible() && p.collidWithMaterial(item) ) {
         p.getItem(item);
         itemScore += 50;
+      }
+    }
+    
+    // ÉgÉâÉbÉvè’ìÀîªíË
+    for ( Trap trap : traps ) {
+      if ( p.collidWithMaterial(trap) ) {
+        trap.motion(p);
       }
     }
     
