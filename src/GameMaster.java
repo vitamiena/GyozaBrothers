@@ -42,8 +42,8 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   
   @Override
   public void init() {  
-  	AudioClip BGM1=getAudioClip(getDocumentBase(), "BGM.wav");
-  	BGM1.loop();
+    AudioClip BGM1=getAudioClip(getDocumentBase(), "Sound\\BGM.wav");
+    BGM1.loop();
     setFocusable(true);
     addKeyListener(this);   
     Dimension size = getSize(); // âÊñ ÉTÉCÉY
