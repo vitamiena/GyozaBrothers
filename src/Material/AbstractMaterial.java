@@ -37,19 +37,15 @@ abstract public class AbstractMaterial {
   public int getTop() { return y; }
   public int getBottom() { return y + height; }
   // ˆÚ“®•ûŒü‚ÌŽæ“¾
-  public Vector getMoveDir() {
-    return moveDir;
-  }
-
+  public Vector getMoveDir() { return moveDir; }
+  public Color getColor() { return color; }
   
   public void setX(int t) { x = t; }
   public void setY(int t) { y = t; }
   public void setWidth(int t) { width = t; }
   public void setHeight(int t) { height = t; }
-  public void setMoveDir(Vector v) {
-    moveDir = v;
-  }
-
+  public void setMoveDir(Vector v) { moveDir = v; }
+  public void setColor(Color c) { color = c; }
  
   public Rectangle getRectangle() {
     return new Rectangle(getX(), getY(), getWidth(), getHeight());
