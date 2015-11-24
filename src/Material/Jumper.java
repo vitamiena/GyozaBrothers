@@ -6,18 +6,21 @@ import java.awt.*;
 import Env.*;
 
 public class Jumper extends Enemy {
+  private int speed = -2;
+  private int jumpHight = 20;
+
   public Jumper ( int w, int h, int x, int y, Color c ) {
     super( w, h, x, y, c );
     Vector v = getMoveDir();
-    v.horizontal = -2;
+    v.horizontal = speed;
     setMoveDir(v);
-    setjumpHeight(20);
+    setjumpHeight(jumpHight);
     jump();
   }
 
   public void motion () {
     Vector v = getMoveDir();
-    v.horizontal = -2;
+    v.horizontal = speed;
     setMoveDir(v);
 
     if ( !isJumping() ) {
