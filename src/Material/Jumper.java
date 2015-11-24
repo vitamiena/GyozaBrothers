@@ -11,7 +11,7 @@ public class Jumper extends Enemy {
 
   public Jumper ( int w, int h, int x, int y, Color c ) {
     super( w, h, x, y, c );
-    Vector v = getMoveDir();
+  	Vector v = getMoveDir();
     v.horizontal = speed;
     setMoveDir(v);
     setjumpHeight(jumpHight);
