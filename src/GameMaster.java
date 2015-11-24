@@ -78,7 +78,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     structures.add(new Structure(20, 190, 2680, height-170, Color.ORANGE));
     structures.add(new Structure(50, 200, 2700, height-180, Color.ORANGE));
     structures.add(new Structure(100, 100, 2750, height-50, Color.ORANGE));
-    structures.add(new Structure(400, 100, 2350, -50, Color.ORANGE));
+    structures.add(new UpDownStructure(400, 100, 2350, -50, Color.ORANGE, 70));
 
     items = new ArrayList<Item>();
     items.add(new Item(10, 10, 100, height-100, Color.BLUE));
@@ -163,9 +163,8 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
       // プレイヤが生存している限りループ
       while ( player.isAlive() && ( ! map.isGoal() ) ) {  
         offg.clearRect(0, 0, width, height);
-        player.move(); // プレイヤの移動方向の設定
-        map.enemyMove(player);
-        map.playerMove(player); // プレイヤの画面上の移動
+        player.move(); // プレイヤの移動方向の設定        
+        map.update(player);
         map.draw(offg, player); // 要素の描画
         showLife();
         repaint();  

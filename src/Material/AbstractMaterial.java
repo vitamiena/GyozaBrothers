@@ -10,7 +10,7 @@ abstract public class AbstractMaterial {
   private int height;  // ‚‚³
   private int x;
   private int y;
-  public Vector moveDir;  // ˆÚ“®•ûŒü
+  private Vector moveDir;  // ˆÚ“®•ûŒü
   private Color color;
   
   public AbstractMaterial(int w, int h, int tx, int ty, Color c) {
@@ -36,11 +36,20 @@ abstract public class AbstractMaterial {
   public int getRight() { return x+width; }
   public int getTop() { return y; }
   public int getBottom() { return y + height; }
+  // ˆÚ“®•ûŒü‚Ìæ“¾
+  public Vector getMoveDir() {
+    return moveDir;
+  }
+
   
   public void setX(int t) { x = t; }
   public void setY(int t) { y = t; }
   public void setWidth(int t) { width = t; }
   public void setHeight(int t) { height = t; }
+  public void setMoveDir(Vector v) {
+    moveDir = v;
+  }
+
  
   public Rectangle getRectangle() {
     return new Rectangle(getX(), getY(), getWidth(), getHeight());

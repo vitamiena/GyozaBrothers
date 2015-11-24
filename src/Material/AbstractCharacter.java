@@ -38,16 +38,6 @@ abstract public class AbstractCharacter extends AbstractMaterial {
     return isJumping;
   }
 
-  // ゲッター・セッター
-  public void setMoveDir(Vector v) {
-    moveDir = v;
-  }
-
-  // 移動方向の取得
-  public Vector getMoveDir() {
-    return moveDir;
-  }
-
   // ジャンプの高さ
   public void setjumpHeight( int y ) { jumpHeight = y; }
   public int getjumpHeight() { return jumpHeight; }
@@ -67,7 +57,9 @@ abstract public class AbstractCharacter extends AbstractMaterial {
   }
 
   public void jump() {
-    moveDir.vertical -= jumpHeight;
+    Vector v = getMoveDir();
+    v.vertical -= jumpHeight;
+    setMoveDir(v);
     isJumping = true;
   }
   
