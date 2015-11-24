@@ -1,9 +1,10 @@
-package Material;
+package Material.Enemy;
 
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.*;
 import Env.*;
+import Material.*;
 
 public class Enemy extends AbstractCharacter {
   public Enemy ( int w, int h, int x, int y, Color c ) {

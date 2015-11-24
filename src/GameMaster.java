@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import java.util.ArrayList;
 import Env.*;
 import Material.*;
+import Material.Enemy.*;
 import Game.*;
 
 import static java.awt.event.KeyEvent.*;

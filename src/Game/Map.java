@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import Env.*;
 import Material.*;
+import Material.Enemy.*;
 
 public class Map {
 
