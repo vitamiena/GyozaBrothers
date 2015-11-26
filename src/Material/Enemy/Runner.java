@@ -1,9 +1,10 @@
-package Material;
+package Material.Enemy;
 
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.*;
 import Env.*;
+import Material.*;
 
 public class Runner extends Enemy {
   private int speed = -2;

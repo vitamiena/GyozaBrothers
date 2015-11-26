@@ -1,10 +1,11 @@
-package Material;
+package Material.Enemy;
 
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.*;
 import java.util.Random;
 import Env.*;
+import Material.*;
 
 public class RocketMan extends Enemy {
   private int speed = -10;
