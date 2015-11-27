@@ -1,5 +1,7 @@
 package Game;
 
+import java.applet.AudioClip;
+import javax.swing.JApplet;
 import java.awt.Graphics;
 import java.applet.Applet;
 import java.awt.Color;
@@ -11,7 +13,9 @@ import Material.Enemy.*;
 public class Map {
 
   private static Map singleton = new Map();
-    
+  
+  private GameMaster gm;
+  
   private int width;
   private int height;
   private int player_x;
@@ -27,6 +31,7 @@ public class Map {
   private ArrayList<Enemy> enemies;
   private ArrayList<Trap> traps;
   private Structure goal;
+  //public AudioClip killse;
     
   private Map() {
   }
@@ -45,8 +50,11 @@ public class Map {
     isGoal = false;
   }  
   
-  public static Map getInstance(int w, int h, ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e, ArrayList<Trap> t, Structure goal) {
+  public static Map getInstance(int w, int h,
+    ArrayList<Structure> s, ArrayList<Item> i, ArrayList<Enemy> e, ArrayList<Trap> t, 
+    Structure goal, GameMaster g ) {
     singleton.initMap(w, h);
+    singleton.gm = g;
     singleton.structures = new ArrayList<Structure>(s); 
     singleton.items = new ArrayList<Item>(i); 
     singleton.enemies = new ArrayList<Enemy>(e);
@@ -107,6 +115,7 @@ public class Map {
   // ƒvƒŒƒCƒ„‚ÌˆÚ“®
   public void playerMove(Player p) {
     characterMove(p);
+    gm.se = gm.getAudioClip(gm.getDocumentBase(), "Sound\\kill.wav");
     
     // Ž€–S”»’è
     if ( p.getTop() > height ) {
@@ -119,14 +128,14 @@ public class Map {
       if ( p.collidWithMaterial(enemy) && enemy.isAlive() ) {
         if ( p.onMaterial(enemy) ) {
           p.jump();
-          enemy.dead();
+          enemy.dead( gm.se );
           enemyScore += 100;
         } else {
           if ( !p.isImmortal() ) {
             p.dead();
           } else {
             p.toDeadable();
-            enemy.dead();       
+            enemy.dead( gm.se );       
             enemyScore += 100;
           }
         } 

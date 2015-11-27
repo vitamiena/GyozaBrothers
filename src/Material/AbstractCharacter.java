@@ -1,5 +1,6 @@
 package Material;
 
+import java.applet.AudioClip;
 import java.awt.*;
 import Env.*;
 
@@ -8,6 +9,7 @@ abstract public class AbstractCharacter extends AbstractMaterial {
   private boolean isAlive; // 生存フラグ
   private boolean isJumping; // ジャンプしているかどうか
   private int jumpHeight;
+  //public AudioClip JumpSE;
 
   // インスタンスの生成 = 生命の誕生
   public AbstractCharacter(int w, int h, int x, int y, Color c) {
@@ -22,6 +24,11 @@ abstract public class AbstractCharacter extends AbstractMaterial {
     // ジャンプの高さをデフォルトに戻す
     setjumpHeight(10);
     isAlive = false;
+  }
+  
+  public void dead( AudioClip se ){
+    se.play();
+    dead();
   }
   
   // 復活
@@ -57,6 +64,8 @@ abstract public class AbstractCharacter extends AbstractMaterial {
   }
 
   public void jump() {
+  	//AudioClip JumpSE = getAudioClip(getDocumentBase(), "jump.wav");
+  	//JumpSE.play();
     Vector v = getMoveDir();
     v.vertical -= jumpHeight;
     setMoveDir(v);
