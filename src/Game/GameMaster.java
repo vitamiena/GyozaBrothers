@@ -1,3 +1,5 @@
+package Game;
+
 import java.applet.AudioClip; //AudioClipクラスのインポート
 import java.awt.Graphics;
 import java.awt.Dimension;
@@ -24,7 +26,8 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   private int width, height;
   private boolean isPlaying;
   private boolean isStarted;
-  private AudioClip BGM1;
+  public AudioClip bgm1;
+  public AudioClip se;
   
   //private KeyController keyController = KeyController.getInstance();
   ArrayList<Structure> structures;
@@ -42,8 +45,8 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   
   @Override
   public void init() {  
-  	AudioClip BGM1=getAudioClip(getDocumentBase(), "BGM.wav");
-  	BGM1.loop();
+    bgm1 = getAudioClip(getDocumentBase(), "BGM.wav");
+    //bgm1.loop();
     setFocusable(true);
     addKeyListener(this);   
     Dimension size = getSize(); // 画面サイズ
@@ -60,7 +63,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     ms = 0;
 
     materialInit();
-    map = Map.getInstance(width, height, structures, items, enemies, traps, goal);
+    map = Map.getInstance(width, height, structures, items, enemies, traps, goal, this);
     player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
     
   }
@@ -195,7 +198,10 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
       if ( map.isGoal() ) {
         showGoalMessage();
       } else {
-        showGameOverMessage();        
+        se = getAudioClip(getDocumentBase(), "death.wav");
+        bgm1.stop();
+        se.play();
+        showGameOverMessage();
         repaint();
         while ( ! isPlaying && isStarted ) {
           try {        
