@@ -11,7 +11,7 @@ public class Player extends AbstractCharacter {
   private KeyController keyController = KeyController.getInstance();
   private int dashSpeed;
   private boolean isImmortal;
-  
+
   // コンストラクタ
   public Player(int w, int h, int x, int y, Color c) {
     super(w, h, x, y, c);
@@ -24,7 +24,7 @@ public class Player extends AbstractCharacter {
   @Override
   public void reborn() {
     super.reborn();
-
+    setColor(Color.GREEN);
     setjumpHeight(10);
     dashSpeed = 5;
     isImmortal = false;
@@ -80,9 +80,11 @@ public class Player extends AbstractCharacter {
   public void getItem(Item i) {
     // TODO : item種類に応じた挙動
     if ( getjumpHeight() == 10 ) { 
+      setColor(Color.GRAY);
       setjumpHeight(20);
       isImmortal = true;
     } else {
+      setColor(Color.BLACK);
       dashSpeed = 10;
     }
     i.toInvisible();
@@ -94,8 +96,10 @@ public class Player extends AbstractCharacter {
 
   public void toDeadable() {
     if ( dashSpeed == 10 ) {
+      setColor(Color.GRAY);
       dashSpeed = 5;
     } else {
+      setColor(Color.GREEN);
       setjumpHeight(10);
       isImmortal = false;
     }

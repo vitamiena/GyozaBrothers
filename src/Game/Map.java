@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import Env.*;
 import Material.*;
+import Material.Enemy.*;
 
 public class Map {
 
@@ -114,7 +115,7 @@ public class Map {
   // ƒvƒŒƒCƒ„‚ÌˆÚ“®
   public void playerMove(Player p) {
     characterMove(p);
-    gm.se = gm.getAudioClip(gm.getDocumentBase(), "kill.wav");
+    gm.se = gm.getAudioClip(gm.getDocumentBase(), "Sound\\kill.wav");
     
     // Ž€–S”»’è
     if ( p.getTop() > height ) {

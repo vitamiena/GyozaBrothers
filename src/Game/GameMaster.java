@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import java.util.ArrayList;
 import Env.*;
 import Material.*;
+import Material.Enemy.*;
 import Game.*;
 
 import static java.awt.event.KeyEvent.*;
@@ -45,8 +46,8 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   
   @Override
   public void init() {  
-    bgm1 = getAudioClip(getDocumentBase(), "BGM.wav");
-    //bgm1.loop();
+    bgm1 = getAudioClip(getDocumentBase(), "Sound\\BGM.wav");
+    bgm1.loop();
     setFocusable(true);
     addKeyListener(this);   
     Dimension size = getSize(); // âÊñ ÉTÉCÉY
@@ -198,7 +199,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
       if ( map.isGoal() ) {
         showGoalMessage();
       } else {
-        se = getAudioClip(getDocumentBase(), "death.wav");
+        se = getAudioClip(getDocumentBase(), "Sound\\death.wav");
         bgm1.stop();
         se.play();
         showGameOverMessage();
