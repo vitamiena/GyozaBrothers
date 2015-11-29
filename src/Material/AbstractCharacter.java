@@ -72,6 +72,13 @@ abstract public class AbstractCharacter extends AbstractMaterial {
     isJumping = true;
   }
   
+  public void jump( AudioClip se ){
+    
+    se.play();
+    jump();
+    
+  }
+  
   public void landing() {
     isJumping = false;
   };
