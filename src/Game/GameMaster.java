@@ -48,7 +48,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   @Override
   public void init() {  
     bgm1 = getAudioClip(getDocumentBase(), "Sound\\BGM.wav");
-    //bgm1.loop();
+    bgm1.loop();
     setFocusable(true);
     addKeyListener(this);   
     Dimension size = getSize(); // âÊñ ÉTÉCÉY
@@ -105,7 +105,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     
     traps = new ArrayList<Trap>();
     traps.add(new RocketTrap(15, 10, 2800, height-51, Color.YELLOW));
-    traps.add(new DeathTrap(10, 100, 100, height-51, Color.RED));
+    traps.add(new DeathTrap(15, 100, 100, height-51, Color.RED));
     
     goal = new Structure(10, 600, 2840, 50, Color.GREEN);
   }
