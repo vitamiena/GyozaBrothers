@@ -31,7 +31,6 @@ public class Map {
   private ArrayList<Enemy> enemies;
   private ArrayList<Trap> traps;
   private Structure goal;
-  //public AudioClip killse;
     
   private Map() {
   }
@@ -145,6 +144,8 @@ public class Map {
     // アイテム衝突判定
     for ( Item item : items ) {
       if ( item.isVisible() && p.collidWithMaterial(item) ) {
+        gm.se = gm.getAudioClip(gm.getDocumentBase(), "Sound\\get_item.wav");
+        gm.se.play();
         p.getItem(item);
         itemScore += 50;
       }
@@ -159,6 +160,9 @@ public class Map {
     
     // ゴール判定
     if ( p.collidWithMaterial(goal) ) {
+      gm.bgm2 = gm.getAudioClip(gm.getDocumentBase(), "Sound\\goal.wav");
+      gm.bgm1.stop();
+      gm.bgm2.play();
       isGoal = true;
     }
   }

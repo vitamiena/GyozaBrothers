@@ -3,22 +3,31 @@ package Material;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
+import java.applet.AudioClip;
 import static java.awt.event.KeyEvent.*;
 import java.awt.*;
+import Game.*;
 import Env.*;
 
 public class Player extends AbstractCharacter {
   private KeyController keyController = KeyController.getInstance();
   private int dashSpeed;
   private boolean isImmortal;
+  private GameMaster gm;
 
   // コンストラクタ
-  public Player(int w, int h, int x, int y, Color c) {
+  public Player(int w, int h, int x, int y, Color c ) {
     super(w, h, x, y, c);
+    
 
     setjumpHeight(10);
     dashSpeed = 5;
     isImmortal = false;
+  }
+  
+   public Player(int w, int h, int x, int y, Color c, GameMaster g ) {
+    this(w, h, x, y, c);
+    gm = g;
   }
 
   @Override
@@ -61,7 +70,8 @@ public class Player extends AbstractCharacter {
     }
     
     if ( ( ! isJumping() ) && keyController.getUp() == KeyController.Key.Keep ) {
-      jump();
+      gm.se = gm.getAudioClip(gm.getDocumentBase(), "Sound\\jump.wav");
+      jump( gm.se );
     }
     
     setMoveDir(v);

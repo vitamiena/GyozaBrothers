@@ -28,6 +28,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
   private boolean isPlaying;
   private boolean isStarted;
   public AudioClip bgm1;
+  public AudioClip bgm2;
   public AudioClip se;
   
   //private KeyController keyController = KeyController.getInstance();
@@ -65,7 +66,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
 
     materialInit();
     map = Map.getInstance(width, height, structures, items, enemies, traps, goal, this);
-    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN);
+    player = new Player(10, 10, map.getPlayerX(), map.getPlayerY(), Color.GREEN, this );
     
   }
   
@@ -176,6 +177,7 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
         }
       }
       ms = 0;
+      bgm1.loop();
       // プレイヤが生存している限りループ
       while ( player.isAlive() && ( ! map.isGoal() ) ) {  
         offg.clearRect(0, 0, width, height);
@@ -197,6 +199,9 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
       }
       isPlaying = false;
       if ( map.isGoal() ) {
+        //bgm2 = getAudioClip(getDocumentBase(), "Sound\\goal.wav");
+        //bgm1.stop();
+        //bgm2.play();
         showGoalMessage();
       } else {
         se = getAudioClip(getDocumentBase(), "Sound\\death.wav");
