@@ -199,9 +199,6 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
       }
       isPlaying = false;
       if ( map.isGoal() ) {
-        //bgm2 = getAudioClip(getDocumentBase(), "Sound\\goal.wav");
-        //bgm1.stop();
-        //bgm2.play();
         showGoalMessage();
       } else {
         se = getAudioClip(getDocumentBase(), "Sound\\death.wav");

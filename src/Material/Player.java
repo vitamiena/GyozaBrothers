@@ -16,7 +16,7 @@ public class Player extends AbstractCharacter {
   private GameMaster gm;
 
   // コンストラクタ
-  public Player(int w, int h, int x, int y, Color c ) {
+  public Player(int w, int h, int x, int y, Color c) {
     super(w, h, x, y, c);
     
 
@@ -25,7 +25,7 @@ public class Player extends AbstractCharacter {
     isImmortal = false;
   }
   
-   public Player(int w, int h, int x, int y, Color c, GameMaster g ) {
+   public Player(int w, int h, int x, int y, Color c, GameMaster g) {
     this(w, h, x, y, c);
     gm = g;
   }
