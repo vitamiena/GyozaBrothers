@@ -21,7 +21,7 @@ public class Map {
   private int player_x;
   private int player_y;
   protected int buttom;
-  private int check_point = 600;
+  private int check_point = 3000;
   private boolean isGoal;
   private int itemScore;
   private int enemyScore;

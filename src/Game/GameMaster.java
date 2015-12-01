@@ -89,8 +89,21 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     structures.add(new Structure(300, 200, 2380, height-180, Color.ORANGE));
     structures.add(new Structure(20, 190, 2680, height-170, Color.ORANGE));
     structures.add(new Structure(50, 200, 2700, height-180, Color.ORANGE));
-    structures.add(new Structure(100, 100, 2750, height-50, Color.ORANGE));
+    structures.add(new Structure(750, 100, 2750, height-50, Color.ORANGE));
     structures.add(new UpDownStructure(400, 100, 2350, -50, Color.ORANGE, 70));
+    structures.add(new Structure(400, 200, 3500, height-31, Color.ORANGE));    
+    structures.add(new Structure(10, 10, 3510, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3530, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3550, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3570, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3590, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3620, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3650, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3710, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3750, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3790, height-50, Color.ORANGE));
+    structures.add(new Structure(10, 10, 3850, height-50, Color.ORANGE));
+    structures.add(new Structure(150, 200, 3900, height-50, Color.ORANGE));    
 
     items = new ArrayList<Item>();
     items.add(new Item(10, 10, 100, height-100, Color.BLUE));
@@ -104,10 +117,11 @@ public class GameMaster extends JApplet implements Runnable, KeyListener {
     enemies.add(new RocketMan(30, 10, 400, height-120, Color.RED));
     
     traps = new ArrayList<Trap>();
-    traps.add(new RocketTrap(15, 12, 2800, height-51, Color.YELLOW));
-    traps.add(new DeathTrap(15, 10, 50, height-51, Color.RED));
+    traps.add(new RocketTrap(10, 10, 3680, height-50, Color.YELLOW));
+    traps.add(new RocketTrap(100, 12, 4000, height-51, Color.YELLOW));
+    traps.add(new DeathTrap(400, 10, 3500, height-41, Color.RED));
     
-    goal = new Structure(10, 600, 2840, 50, Color.GREEN);
+    goal = new Structure(10, 600, 4190, 50, Color.GREEN);
   }
   
   public void uopdate(Graphics g) {
